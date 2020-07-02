@@ -10,7 +10,6 @@ import xyz.wagyourtail.jsmacros.runscript.functions.hudFunctions;
 import org.spongepowered.asm.mixin.injection.At;
 
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.WorldRenderer;
 
 @Mixin(GameRenderer.class)
 public class jsmacros_WorldRendererMixin {

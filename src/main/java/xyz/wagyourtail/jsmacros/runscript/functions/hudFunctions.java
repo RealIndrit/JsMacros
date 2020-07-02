@@ -43,7 +43,7 @@ public class hudFunctions {
     }
     
     public Draw3D createDraw3D() {
-        return new Draw3D();
+        return null;
     }
     
     public void registerDraw3D(Draw3D draw) {
