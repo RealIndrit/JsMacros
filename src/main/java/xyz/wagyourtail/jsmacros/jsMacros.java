@@ -66,7 +66,11 @@ public class jsMacros implements ClientModInitializer {
     }
 
     static public Text getKeyText(String translationKey) {
-        return new LiteralText(getLocalizedName(InputUtil.fromName(translationKey)));
+        try {
+            return new LiteralText(getLocalizedName(InputUtil.fromName(translationKey)));
+        } catch (Exception e) {
+            return new LiteralText(translationKey);
+        }
     }
     
     @Deprecated
