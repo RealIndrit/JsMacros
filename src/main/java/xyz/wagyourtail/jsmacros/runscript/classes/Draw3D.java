@@ -12,7 +12,7 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
 public class Draw3D {
@@ -61,8 +61,8 @@ public class Draw3D {
         // offsetRender
         Camera camera = mc.gameRenderer.getCamera();
         Vec3d camPos = camera.getPos();
-        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getPitch()), 0, 0, 0);
-        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getYaw() + 180.0F), 0, 0, 0);
+        //GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getPitch()), 0, 0, 0);
+        //GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getYaw() + 180.0F), 0, 0, 0);
         GlStateManager.translated(-camPos.x, -camPos.y, -camPos.z);
         
         //render
@@ -143,31 +143,12 @@ public class Draw3D {
                 
                 buf.begin(GL11.GL_TRIANGLE_STRIP,  VertexFormats.POSITION_COLOR); 
                 
-                WorldRenderer.drawBox(buf, x1, y1, z1, x2, y2, z2, fr, fg, fb, fa);
+                WorldRenderer.buildBox(buf, x1, y1, z1, x2, y2, z2, fr, fg, fb, fa);
                 
                 tess.draw();
             }
             
-            buf.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
-            
-            buf.vertex(x1, y1, z1).color(r, g, b, a).next();
-            buf.vertex(x1, y1, z2).color(r, g, b, a).next();
-            buf.vertex(x2, y1, z2).color(r, g, b, a).next();
-            buf.vertex(x2, y1, z1).color(r, g, b, a).next();
-            buf.vertex(x1, y1, z1).color(r, g, b, a).next();
-            buf.vertex(x1, y2, z1).color(r, g, b, a).next();
-            buf.vertex(x2, y2, z1).color(r, g, b, a).next();
-            buf.vertex(x2, y2, z2).color(r, g, b, a).next();
-            buf.vertex(x1, y2, z2).color(r, g, b, a).next();
-            buf.vertex(x1, y2, z1).color(r, g, b, a).next();
-            buf.vertex(x1, y1, z2).color(r, g, b, 0).next();
-            buf.vertex(x1, y2, z2).color(r, g, b, a).next();
-            buf.vertex(x2, y1, z2).color(r, g, b, 0).next();
-            buf.vertex(x2, y2, z2).color(r, g, b, a).next();
-            buf.vertex(x2, y1, z1).color(r, g, b, 0).next();
-            buf.vertex(x2, y2, z1).color(r, g, b, a).next();
-            
-            tess.draw();
+            WorldRenderer.drawBoxOutline(new Box(x1, y1, z1, x2, y2, z2), r, g, b, a);
         }
     }
     
