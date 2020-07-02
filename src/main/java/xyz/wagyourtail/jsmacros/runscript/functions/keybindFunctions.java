@@ -2,16 +2,16 @@ package xyz.wagyourtail.jsmacros.runscript.functions;
 
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.InputUtil.Key;
+import net.minecraft.client.util.InputUtil.KeyCode;
 
 public class keybindFunctions {
     
     
-    public Key getKeyCode(String keyName) {
+    public KeyCode getKeyCode(String keyName) {
         try {
-            return InputUtil.fromTranslationKey(keyName);
+            return InputUtil.fromName(keyName);
         } catch (Exception e) {
-            return InputUtil.UNKNOWN_KEY;
+            return InputUtil.UNKNOWN_KEYCODE;
         }
     }
     
@@ -19,7 +19,7 @@ public class keybindFunctions {
         key(getKeyCode(keyName), keyState);
     }
     
-    public void key(Key keyBind, boolean keyState) {
+    public void key(KeyCode keyBind, boolean keyState) {
         KeyBinding.setKeyPressed(keyBind, keyState);
     }
     

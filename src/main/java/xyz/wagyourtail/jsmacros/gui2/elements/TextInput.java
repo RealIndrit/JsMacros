@@ -37,13 +37,13 @@ public class TextInput extends Button {
     public void updateSelStart(int startIndex) {
         selStartIndex = startIndex;
         if (startIndex == 0) selStart = x + 1;
-        else selStart = x + 2 + mc.textRenderer.getWidth(content.substring(0, startIndex));
+        else selStart = x + 2 + mc.textRenderer.getStringWidth(content.substring(0, startIndex));
     }
 
     public void updateSelEnd(int endIndex) {
         selEndIndex = endIndex;
         if (endIndex == 0) selEnd = x + 2;
-        else selEnd = x + 3 + mc.textRenderer.getWidth(content.substring(0, endIndex));
+        else selEnd = x + 3 + mc.textRenderer.getStringWidth(content.substring(0, endIndex));
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -160,8 +160,8 @@ public class TextInput extends Button {
         return bl;
     }
 
-    protected void renderMessage(MatrixStack matricies) {
-        fill(matricies, selStart, height > 9 ? y + 2 : y, Math.min(selEnd, x + width - 2), (height > 9 ? y + 2 : y) + mc.textRenderer.fontHeight, selColor);
-        drawStringWithShadow(matricies, mc.textRenderer, mc.textRenderer.trimToWidth(content, width - 4), x + 2, height > 9 ? y + 2 : y, textColor);
+    protected void renderMessage() {
+        fill(selStart, height > 9 ? y + 2 : y, Math.min(selEnd, x + width - 2), (height > 9 ? y + 2 : y) + mc.textRenderer.fontHeight, selColor);
+        drawString(mc.textRenderer, mc.textRenderer.trimToWidth(content, width - 4), x + 2, height > 9 ? y + 2 : y, textColor);
     }
 }

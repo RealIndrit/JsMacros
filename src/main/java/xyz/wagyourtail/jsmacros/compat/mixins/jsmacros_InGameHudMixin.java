@@ -17,10 +17,10 @@ import xyz.wagyourtail.jsmacros.runscript.functions.hudFunctions;
 @Mixin(InGameHud.class)
 class jsmacros_InGameHudMixin {
     @Inject(at = @At("HEAD"), method = "render")
-    public void jsMacros_renderHud(MatrixStack matrixStack, float f, final CallbackInfo info) {
+    public void jsMacros_renderHud(float f, final CallbackInfo info) {
         
         for (Draw2D h : hudFunctions.overlays) {
-            h.render(matrixStack);
+            h.render();
         }
         
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);

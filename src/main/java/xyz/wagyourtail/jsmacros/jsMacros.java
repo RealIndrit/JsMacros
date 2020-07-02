@@ -7,9 +7,11 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Objects;
 
 import org.apache.commons.io.FileUtils;
 import org.graalvm.polyglot.Context;
@@ -64,20 +66,33 @@ public class jsMacros implements ClientModInitializer {
     }
 
     static public Text getKeyText(String translationKey) {
-        try {
-            return InputUtil.fromTranslationKey(translationKey).getLocalizedText();
-        } catch(Exception e) {
-            return new LiteralText(translationKey);
-        }
+        return new LiteralText(getLocalizedName(InputUtil.fromName(translationKey)));
     }
     
     @Deprecated
-    static public String getLocalizedName(InputUtil.Key keyCode) {
-        return I18n.translate(keyCode.getTranslationKey());
+    static public String getLocalizedName(InputUtil.KeyCode keyCode) {
+        String string = keyCode.getName();
+        int i = keyCode.getKeyCode();
+        String string2 = null;
+        switch(keyCode.getCategory()) {
+        case KEYSYM:
+           string2 = InputUtil.getKeycodeName(i);
+           break;
+        case SCANCODE:
+           string2 = InputUtil.getScancodeName(i);
+           break;
+        case MOUSE:
+           String string3 = I18n.translate(string);
+           string2 = Objects.equals(string3, string) ? I18n.translate(InputUtil.Type.MOUSE.getName(), i + 1) : string3;
+        }
+
+        return string2 == null ? I18n.translate(string) : string2;
      }
     
     @Deprecated
     static public MinecraftClient getMinecraft() {
         return MinecraftClient.getInstance();
     }
+    
+    
 }

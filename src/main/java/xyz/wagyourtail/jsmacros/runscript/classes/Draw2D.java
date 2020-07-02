@@ -93,18 +93,18 @@ public class Draw2D extends DrawableHelper {
     }
     
     
-    public void render(MatrixStack matrixStack) {
+    public void render() {
         RenderSystem.pushMatrix();
         for (rect r : rectFields) {
-            r.render(matrixStack);
+            r.render();
         }
         RenderSystem.popMatrix();
         for (item i : itemFields) {
-            i.render(matrixStack);
+            i.render();
         }
         RenderSystem.pushMatrix();
         for (text t : textFields) {
-            t.render(matrixStack);
+            t.render();
         }
         RenderSystem.popMatrix();
     }
@@ -140,7 +140,7 @@ public class Draw2D extends DrawableHelper {
             if (it != null) this.item = new ItemStack(it, count);
         }
         
-        public void render(MatrixStack matrixStack) {
+        public void render() {
             MinecraftClient mc = MinecraftClient.getInstance();
             if (item != null) {
                 ItemRenderer i = mc.getItemRenderer();
@@ -176,8 +176,8 @@ public class Draw2D extends DrawableHelper {
             this.y2 = y2;
         }
         
-        public void render(MatrixStack matrixStack) {
-            Draw2D.fill(matrixStack, x1, y1, x2, y2, color);
+        public void render() {
+            Draw2D.fill(x1, y1, x2, y2, color);
         }
     }
     
@@ -195,7 +195,7 @@ public class Draw2D extends DrawableHelper {
             this.x = x;
             this.y = y;
             this.color = color;
-            this.width = mc.textRenderer.getWidth(text);
+            this.width = mc.textRenderer.getStringWidth(text);
             this.shadow = shadow;
         }
         
@@ -207,17 +207,17 @@ public class Draw2D extends DrawableHelper {
         public void setText(String text) {
             MinecraftClient mc = MinecraftClient.getInstance();
             this.text = text;
-            this.width = mc.textRenderer.getWidth(text);
+            this.width = mc.textRenderer.getStringWidth(text);
         }
         
         public int getWidth() {
             return this.width;
         }
         
-        public void render(MatrixStack matrixStack) {
+        public void render() {
             MinecraftClient mc = MinecraftClient.getInstance();
-            if (shadow) mc.textRenderer.drawWithShadow(matrixStack, text, x, y, color);
-            else mc.textRenderer.draw(matrixStack, text, x, y, color);
+            if (shadow) mc.textRenderer.drawWithShadow(text, x, y, color);
+            else mc.textRenderer.draw(text, x, y, color);
         }
     }
 }

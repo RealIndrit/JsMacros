@@ -6,24 +6,24 @@ import net.minecraft.client.util.InputUtil;
 import xyz.wagyourtail.jsmacros.config.RawMacro;
 
 public class KeyUpMacro extends BaseMacro {
-    private InputUtil.Key key;
+    private InputUtil.KeyCode key;
     private boolean prevKeyState = false;
     
     public KeyUpMacro(RawMacro macro) {
         super(macro);
         try {
-            key = InputUtil.fromTranslationKey(macro.eventkey);
+            key = InputUtil.fromName(macro.eventkey);
         } catch(Exception e) {
-            key = InputUtil.UNKNOWN_KEY;
+            key = InputUtil.UNKNOWN_KEYCODE;
         }
     }
     
-    public void setKey(InputUtil.Key setkey) {
+    public void setKey(InputUtil.KeyCode setkey) {
         key = setkey;
     }
     
     public String getKey() {
-        return key.getTranslationKey();
+        return key.getName();
     }
     
     @Override
@@ -37,7 +37,7 @@ public class KeyUpMacro extends BaseMacro {
     private boolean check(HashMap<String, Object> args) {
         boolean keyState = false;
         if ((int)args.get("action") > 0) keyState = true;
-        if ((InputUtil.Key)args.get("rawkey") == key)
+        if ((InputUtil.KeyCode)args.get("rawkey") == key)
             if (keyState && !prevKeyState) {
                 prevKeyState = true;
                 return false;

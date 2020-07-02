@@ -127,7 +127,7 @@ public class MacroContainer extends MultiElementContainer {
     
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (selectkey) {
-            setKey(InputUtil.Type.KEYSYM.createFromCode(keyCode).getTranslationKey());
+            setKey(InputUtil.Type.KEYSYM.createFromCode(keyCode).toString());
             return false;
         }
         return true;
@@ -135,7 +135,7 @@ public class MacroContainer extends MultiElementContainer {
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (selectkey) {
-            setKey(InputUtil.Type.MOUSE.createFromCode(button).getTranslationKey());
+            setKey(InputUtil.Type.MOUSE.createFromCode(button).toString());
             return false;
         }
         return true;
@@ -150,13 +150,13 @@ public class MacroContainer extends MultiElementContainer {
     }
     
     @Override
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
+    public void render(int mouseX, int mouseY, float delta) {
         if (visible) {
             int w = this.width - 12;
             // separate
-            fill(matricies, x + (w / 12), y + 1, x + (w / 12) + 1, y + height - 1, 0xFFFFFFFF);
-            fill(matricies, x + (w / 4), y + 1, x + (w / 4) + 1, y + height - 1, 0xFFFFFFFF);
-            fill(matricies, x + width - 14, y + 1, x + width - 13, y + height - 1, 0xFFFFFFFF);
+            fill(x + (w / 12), y + 1, x + (w / 12) + 1, y + height - 1, 0xFFFFFFFF);
+            fill(x + (w / 4), y + 1, x + (w / 4) + 1, y + height - 1, 0xFFFFFFFF);
+            fill(x + width - 14, y + 1, x + width - 13, y + height - 1, 0xFFFFFFFF);
             
             // icon for keystate
             if (macro.type != MacroEnum.EVENT) {
@@ -173,15 +173,16 @@ public class MacroContainer extends MultiElementContainer {
                     break;
                 }
                 RenderSystem.enableBlend();
-                drawTexture(matricies, x + w / 4 - height + 2, y + 2, height-4, height-4, 0, 0, 32, 32, 32, 32);
+                blit(x + w / 4 - height + 2, y + 2, height-4, height-4, 0, 0, 32, 32, 32, 32);
+                //drawTexture(x + w / 4 - height + 2, y + 2, height-4, height-4, 0, 0, 32, 32, 32, 32);
                 RenderSystem.disableBlend();
             }
             
             // border
-            fill(matricies, x, y, x + width, y + 1, 0xFFFFFFFF);
-            fill(matricies, x, y + height - 1, x + width, y + height, 0xFFFFFFFF);
-            fill(matricies, x, y + 1, x + 1, y + height - 1, 0xFFFFFFFF);
-            fill(matricies, x + width - 1, y + 1, x + width, y + height - 1, 0xFFFFFFFF);
+            fill(x, y, x + width, y + 1, 0xFFFFFFFF);
+            fill(x, y + height - 1, x + width, y + height, 0xFFFFFFFF);
+            fill(x, y + 1, x + 1, y + height - 1, 0xFFFFFFFF);
+            fill(x + width - 1, y + 1, x + width, y + height - 1, 0xFFFFFFFF);
         }
     }
 

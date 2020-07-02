@@ -17,13 +17,13 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.StringRenderable;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 
 public class FileChooser extends OverlayContainer {
     private File directory;
-    private StringRenderable dirname;
+    private Text dirname;
     private File selected;
     private ArrayList<fileObj> files = new ArrayList<>();
     private Consumer<File> setFile;
@@ -173,15 +173,15 @@ public class FileChooser extends OverlayContainer {
         }
     }
 
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
-        renderBackground(matricies);
+    public void render(int mouseX, int mouseY, float delta) {
+        renderBackground();
 
-        textRenderer.drawTrimmed(this.dirname, x + 3, y + 3, width - 14, 0xFFFFFF);
+        textRenderer.drawTrimmed(this.dirname.asString(), x + 3, y + 3, width - 14, 0xFFFFFF);
 
-        fill(matricies, x + 2, y + 12, x + width - 2, y + 13, 0xFFFFFFFF);
-        fill(matricies, x + 2, y + height - 15, x + width - 2, y + height - 14, 0xFFFFFFFF);
+        fill(x + 2, y + 12, x + width - 2, y + 13, 0xFFFFFFFF);
+        fill(x + 2, y + height - 15, x + width - 2, y + height - 14, 0xFFFFFFFF);
 //        textRenderer.draw(, mouseX, mouseY, color, shadow, matrix, vertexConsumers, seeThrough, backgroundColor, light)
-        super.render(matricies, mouseX, mouseY, delta);
+        super.render(mouseX, mouseY, delta);
     }
 
     public static class fileObj {

@@ -18,11 +18,11 @@ public class EventMacrosScreen extends MacroScreen {
         eventScreen.setColor(0x4FFFFFFF);
         
         keyScreen.onPress = (btn) -> {
-            client.openScreen(this.parent);
+            minecraft.openScreen(this.parent);
         };
 
         profileScreen.onPress = (btn) -> {
-            client.openScreen(new ProfileScreen(this));
+            minecraft.openScreen(new ProfileScreen(this));
         };
         
         topbar.deftype = MacroEnum.EVENT;

@@ -51,28 +51,28 @@ public class OverlayContainer extends MultiElementContainer {
         this.close.accept(this);
     }
     
-    public void renderBackground(MatrixStack matricies) {
+    public void renderBackground() {
         // black bg
-        fill(matricies, x, y, x + width, y + height, 0xFF000000);
+        fill(x, y, x + width, y + height, 0xFF000000);
         // 2 layer border
-        fill(matricies, x, y, x + width, y + 1, 0x7F7F7F7F);
-        fill(matricies, x, y + height - 1, x + width, y + height, 0x7F7F7F7F);
-        fill(matricies, x, y + 1, x + 1, y + height - 1, 0x7F7F7F7F);
-        fill(matricies, x + width - 1, y + 1, x + width, y + height - 1, 0x7F7F7F7F);
+        fill(x, y, x + width, y + 1, 0x7F7F7F7F);
+        fill(x, y + height - 1, x + width, y + height, 0x7F7F7F7F);
+        fill(x, y + 1, x + 1, y + height - 1, 0x7F7F7F7F);
+        fill(x + width - 1, y + 1, x + width, y + height - 1, 0x7F7F7F7F);
 
-        fill(matricies, x + 1, y + 1, x + width - 1, y + 2, 0xFFFFFFFF);
-        fill(matricies, x + 1, y + height - 2, x + width - 1, y + height - 1, 0xFFFFFFFF);
-        fill(matricies, x + 1, y + 1, x + 2, y + height - 1, 0xFFFFFFFF);
-        fill(matricies, x + width - 2, y + 1, x + width - 1, y + height - 1, 0xFFFFFFFF);
+        fill(x + 1, y + 1, x + width - 1, y + 2, 0xFFFFFFFF);
+        fill(x + 1, y + height - 2, x + width - 1, y + height - 1, 0xFFFFFFFF);
+        fill(x + 1, y + 1, x + 2, y + height - 1, 0xFFFFFFFF);
+        fill(x + width - 2, y + 1, x + width - 1, y + height - 1, 0xFFFFFFFF);
 
     }
     
     @Override
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
+    public void render(int mouseX, int mouseY, float delta) {
         for (AbstractButtonWidget btn : buttons) {
-            btn.render(matricies, mouseX, mouseY, delta);
+            btn.render(mouseX, mouseY, delta);
         }
-        if (this.overlay != null) this.overlay.render(matricies, mouseX, mouseY, delta);
+        if (this.overlay != null) this.overlay.render(mouseX, mouseY, delta);
     }
 
 }

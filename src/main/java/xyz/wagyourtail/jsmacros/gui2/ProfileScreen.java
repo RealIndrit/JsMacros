@@ -14,7 +14,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.StringRenderable;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
 public class ProfileScreen extends Screen {
@@ -24,8 +24,8 @@ public class ProfileScreen extends Screen {
     private ProfileContainer selected;
     private Scrollbar profileScroll;
     protected OverlayContainer overlay;
-    private StringRenderable profText;
-    private StringRenderable defText;
+    private Text profText;
+    private Text defText;
 
     public ProfileScreen(Screen parent) {
         super(new TranslatableText("jsmacros.title"));
@@ -40,20 +40,20 @@ public class ProfileScreen extends Screen {
         profiles.clear();
         topScroll = 35;
 
-        client.keyboard.enableRepeatEvents(true);
+        minecraft.keyboard.enableRepeatEvents(true);
         this.addButton(new Button(0, 0, this.width / 6 - 1, 20, 0x00FFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.keys"), (btn) -> {
-            client.openScreen(parent);
+            minecraft.openScreen(parent);
         }));
 
         this.addButton(new Button(this.width / 6 + 1, 0, this.width / 6 - 1, 20, 0x00FFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.events"), (btn) -> {
-            client.openScreen(new EventMacrosScreen(parent));
+            minecraft.openScreen(new EventMacrosScreen(parent));
         }));
 
         Button profile = this.addButton(new Button(this.width * 5 / 6 + 1, 0, this.width / 6 - 1, 20, 0x4FFFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.profile"), null));
         profile.active = false;
 
         this.addButton(new Button(0, this.height - 20, this.width / 6, 20, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.addprofile"), (btn) -> {
-            this.openOverlay(new TextPrompt(width / 2 - 100, height / 2 - 50, 200, 100, textRenderer, new TranslatableText("jsmacros.profilename"), "", this::addButton, this::removeButton, this::closeOverlay, (str) -> {
+            this.openOverlay(new TextPrompt(width / 2 - 100, height / 2 - 50, 200, 100, minecraft.textRenderer, new TranslatableText("jsmacros.profilename"), "", this::addButton, this::removeButton, this::closeOverlay, (str) -> {
                 addProfile(str);
                 if (!jsMacros.config.options.profiles.containsKey(str)) jsMacros.config.options.profiles.put(str, new ArrayList<>());
                 jsMacros.config.saveConfig();
@@ -61,7 +61,7 @@ public class ProfileScreen extends Screen {
         }));
 
         this.addButton(new Button(this.width / 6, this.height - 20, this.width / 6, 20, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.renameprofile"), (btn) -> {
-            if (!selected.pName.equals(jsMacros.config.options.defaultProfile)) this.openOverlay(new TextPrompt(width / 2 - 100, height / 2 - 50, 200, 100, textRenderer, new TranslatableText("jsmacros.profilename"), selected.pName, this::addButton, this::removeButton, this::closeOverlay, (str) -> {
+            if (!selected.pName.equals(jsMacros.config.options.defaultProfile)) this.openOverlay(new TextPrompt(width / 2 - 100, height / 2 - 50, 200, 100, minecraft.textRenderer, new TranslatableText("jsmacros.profilename"), selected.pName, this::addButton, this::removeButton, this::closeOverlay, (str) -> {
                 jsMacros.config.options.profiles.remove(selected.pName);
                 jsMacros.profile.profileName = str;
                 jsMacros.profile.saveProfile();
@@ -70,7 +70,7 @@ public class ProfileScreen extends Screen {
         }));
 
         this.addButton(new Button(this.width / 3, this.height - 20, this.width / 6, 20, 0, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.deleteprofile"), (btn) -> {
-            if (selected.pName != jsMacros.config.options.defaultProfile) this.openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, textRenderer, new TranslatableText("jsmacros.deleteprofile").append(new LiteralText(" \"" + jsMacros.profile.profileName+"\"")), this::addButton, this::removeButton, this::closeOverlay, (cf) -> {
+            if (selected.pName != jsMacros.config.options.defaultProfile) this.openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, minecraft.textRenderer, new TranslatableText("jsmacros.deleteprofile").append(new LiteralText(" \"" + jsMacros.profile.profileName+"\"")), this::addButton, this::removeButton, this::closeOverlay, (cf) -> {
                 removeProfile(selected);
                 jsMacros.profile.loadOrCreateProfile(jsMacros.config.options.defaultProfile);
                 for (ProfileContainer p : profiles) {
@@ -96,7 +96,7 @@ public class ProfileScreen extends Screen {
 //            
 //            setSelected(jsMacros.profile.profileName);
 //        })));
-        ProfileContainer pc = new ProfileContainer(20, topScroll + profiles.size() * 22, this.width / 2 - 40, 20, this.textRenderer, pName, jsMacros.config.options.defaultProfile, this::addButton, this::setSelected, this::setDefault);
+        ProfileContainer pc = new ProfileContainer(20, topScroll + profiles.size() * 22, this.width / 2 - 40, 20, minecraft.textRenderer, pName, jsMacros.config.options.defaultProfile, this::addButton, this::setSelected, this::setDefault);
         profiles.add(pc);
         profileScroll.setScrollPages((topScroll + profiles.size() * 22) / (double) Math.max(1, this.height - 53));
         if (pName.equals(jsMacros.profile.profileName)) setSelected(pc);
@@ -189,41 +189,41 @@ public class ProfileScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matricies, 0);
+    public void render(int mouseX, int mouseY, float delta) {
+        this.renderBackground(0);
 
         for (ProfileContainer p : profiles) {
-            p.render(matricies, mouseX, mouseY, delta);
+            p.render(mouseX, mouseY, delta);
         }
 
         for (AbstractButtonWidget b : buttons) {
-            ((Button) b).render(matricies, mouseX, mouseY, delta);
+            ((Button) b).render(mouseX, mouseY, delta);
         }
 
         // plist topbar
         int w = this.width / 2 - 40;
-        drawCenteredText(matricies, textRenderer, profText, w * 3 / 8 + 20, 24, 0xFFFFFF);
-        drawCenteredText(matricies, this.textRenderer, textRenderer.trimToWidth(defText, w / 4), w * 7 / 8 + 20, 24, 0xFFFFFF);
-        fill(matricies, 20, 33, this.width / 2 - 20, 34, 0xFFFFFFFF);
+        drawCenteredString(minecraft.textRenderer, profText.asString(), w * 3 / 8 + 20, 24, 0xFFFFFF);
+        drawCenteredString(minecraft.textRenderer, minecraft.textRenderer.trimToWidth(defText.asString(), w / 4), w * 7 / 8 + 20, 24, 0xFFFFFF);
+        fill(20, 33, this.width / 2 - 20, 34, 0xFFFFFFFF);
 
         // pname
-        drawCenteredString(matricies, this.textRenderer, jsMacros.profile.profileName, this.width * 7 / 12, 5, 0x7F7F7F);
+        drawCenteredString(minecraft.textRenderer, jsMacros.profile.profileName, this.width * 7 / 12, 5, 0x7F7F7F);
 //        drawCenteredString(matricies, this.textRenderer, "Not Yet Implemented", this.width / 2, 50, 0xFFFFFFFF);
 
         // middle bar
-        fill(matricies, this.width / 2, 22, this.width / 2 + 1, this.height - 1, 0xFFFFFFFF);
+        fill(this.width / 2, 22, this.width / 2 + 1, this.height - 1, 0xFFFFFFFF);
 
         // top stuff
-        fill(matricies, this.width * 5 / 6 - 1, 0, this.width * 5 / 6 + 1, 20, 0xFFFFFFFF);
-        fill(matricies, this.width / 6 - 1, 0, this.width / 6 + 1, 20, 0xFFFFFFFF);
-        fill(matricies, this.width / 6 * 2, 0, this.width / 6 * 2 + 2, 20, 0xFFFFFFFF);
-        fill(matricies, 0, 20, width, 22, 0xFFFFFFFF);
+        fill(this.width * 5 / 6 - 1, 0, this.width * 5 / 6 + 1, 20, 0xFFFFFFFF);
+        fill(this.width / 6 - 1, 0, this.width / 6 + 1, 20, 0xFFFFFFFF);
+        fill(this.width / 6 * 2, 0, this.width / 6 * 2 + 2, 20, 0xFFFFFFFF);
+        fill(0, 20, width, 22, 0xFFFFFFFF);
 
-        if (overlay != null) overlay.render(matricies, mouseX, mouseY, delta);
+        if (overlay != null) overlay.render(mouseX, mouseY, delta);
     }
 
     public void removed() {
-        client.keyboard.enableRepeatEvents(false);
+        minecraft.keyboard.enableRepeatEvents(false);
     }
 
     public boolean shouldCloseOnEsc() {
@@ -231,6 +231,6 @@ public class ProfileScreen extends Screen {
     }
 
     public void onClose() {
-        client.openScreen(parent);
+        minecraft.openScreen(parent);
     }
 }

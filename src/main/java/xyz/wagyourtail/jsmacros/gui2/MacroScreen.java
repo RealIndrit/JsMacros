@@ -39,14 +39,14 @@ public class MacroScreen extends Screen {
         super.init();
         macros.clear();
         overlay = null;
-        client.keyboard.enableRepeatEvents(true);
+        minecraft.keyboard.enableRepeatEvents(true);
         keyScreen = this.addButton(new Button(0, 0, this.width / 6 - 1, 20, 0x00FFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.keys"), null));
 
         eventScreen = this.addButton(new Button(this.width / 6 + 1, 0, this.width / 6 - 1, 20, 0x00FFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.events"), null));
 
         profileScreen = this.addButton(new Button(this.width * 5 / 6 + 1, 0, this.width / 6 - 1, 20, 0x00FFFFFF, 0xFF000000, 0x7FFFFFFF, 0xFFFFFF, new TranslatableText("jsmacros.profile"), null));
 
-        topbar = new MacroListTopbar(this.width / 12, 25, this.width * 5 / 6, 14, this.textRenderer, MacroEnum.KEY_RISING, this::addButton, this::addMacro);
+        topbar = new MacroListTopbar(this.width / 12, 25, this.width * 5 / 6, 14, minecraft.textRenderer, MacroEnum.KEY_RISING, this::addButton, this::addMacro);
 
         topScroll = 40;
         macroScroll = this.addButton(new Scrollbar(this.width * 23 / 24 - 4, 50, 8, this.height - 75, 0, 0xFF000000, 0xFFFFFFFF, 2, this::onScrollbar));
@@ -62,14 +62,14 @@ public class MacroScreen extends Screen {
     }
 
     public void addMacro(RawMacro macro) {
-        macros.add(new MacroContainer(this.width / 12, topScroll + macros.size() * 16, this.width * 5 / 6, 14, this.textRenderer, macro, this::addButton, this::confirmRemoveMacro, this::setFile));
+        macros.add(new MacroContainer(this.width / 12, topScroll + macros.size() * 16, this.width * 5 / 6, 14, minecraft.textRenderer, macro, this::addButton, this::confirmRemoveMacro, this::setFile));
         macroScroll.setScrollPages((macros.size() * 16) / (double) Math.max(1, this.height - 40));
     }
 
     public void setFile(MacroContainer macro) {
         File f = new File(jsMacros.config.macroFolder, macro.getRawMacro().scriptFile);
         if (!f.equals(jsMacros.config.macroFolder)) f = f.getParentFile();
-        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, this.textRenderer, f, this::addButton, this::removeButton, this::closeOverlay, macro::setFile));
+        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, minecraft.textRenderer, f, this::addButton, this::removeButton, this::closeOverlay, macro::setFile));
     }
 
     public void openOverlay(OverlayContainer overlay) {
@@ -98,7 +98,7 @@ public class MacroScreen extends Screen {
     }
 
     public void confirmRemoveMacro(MacroContainer macro) {
-        openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, this.textRenderer, new TranslatableText("jsmacros.confirmdeletemacro"), this::addButton, this::removeButton, this::closeOverlay, (conf) -> {
+        openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, minecraft.textRenderer, new TranslatableText("jsmacros.confirmdeletemacro"), this::addButton, this::removeButton, this::closeOverlay, (conf) -> {
             removeMacro(macro);
         }));
     }
@@ -138,31 +138,31 @@ public class MacroScreen extends Screen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
     
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matricies, 0);
+    public void render(int mouseX, int mouseY, float delta) {
+        this.renderBackground(0);
 
-        topbar.render(matricies, mouseX, mouseY, delta);
+        topbar.render(mouseX, mouseY, delta);
 
         for (MacroContainer macro : macros) {
-            macro.render(matricies, mouseX, mouseY, delta);
+            macro.render(mouseX, mouseY, delta);
         }
 
         for (AbstractButtonWidget b : buttons) {
-            ((Button) b).render(matricies, mouseX, mouseY, delta);
+            ((Button) b).render(mouseX, mouseY, delta);
         }
 
-        drawCenteredString(matricies, this.textRenderer, jsMacros.profile.profileName, this.width * 7 / 12, 5, 0x7F7F7F);
+        drawCenteredString(minecraft.textRenderer, jsMacros.profile.profileName, this.width * 7 / 12, 5, 0x7F7F7F);
 
-        fill(matricies, this.width * 5 / 6 - 1, 0, this.width * 5 / 6 + 1, 20, 0xFFFFFFFF);
-        fill(matricies, this.width / 6 - 1, 0, this.width / 6 + 1, 20, 0xFFFFFFFF);
-        fill(matricies, this.width / 6 * 2, 0, this.width / 6 * 2 + 2, 20, 0xFFFFFFFF);
-        fill(matricies, 0, 20, width, 22, 0xFFFFFFFF);
+        fill(this.width * 5 / 6 - 1, 0, this.width * 5 / 6 + 1, 20, 0xFFFFFFFF);
+        fill(this.width / 6 - 1, 0, this.width / 6 + 1, 20, 0xFFFFFFFF);
+        fill(this.width / 6 * 2, 0, this.width / 6 * 2 + 2, 20, 0xFFFFFFFF);
+        fill(0, 20, width, 22, 0xFFFFFFFF);
 
-        if (overlay != null) overlay.render(matricies, mouseX, mouseY, delta);
+        if (overlay != null) overlay.render(mouseX, mouseY, delta);
     }
     
     public void removed() {
-        client.keyboard.enableRepeatEvents(false);
+        minecraft.keyboard.enableRepeatEvents(false);
     }
 
     public boolean shouldCloseOnEsc() {
@@ -170,7 +170,7 @@ public class MacroScreen extends Screen {
     }
 
     public void onClose() {
-        client.openScreen(parent);
+        minecraft.openScreen(parent);
         jsMacros.profile.saveProfile();
     }
 }

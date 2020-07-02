@@ -35,7 +35,7 @@ public class Profile {
     public Profile(String defaultProfile) {
         loadOrCreateProfile(defaultProfile);
         
-        keyBinding = new KeyBinding("jsmacros.menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, I18n.translate("jsmacros.title"));
+        keyBinding = new KeyBinding("jsmacros.menu", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, "JS Macros");
         KeyBindingHelper.registerKeyBinding(keyBinding);
 
         initEventHandlerCallbacks();
@@ -176,7 +176,7 @@ public class Profile {
            // -------- KEY ----------- //
            registry.addEvent("KEY");
            KeyCallback.EVENT.register((window, key, scancode, action, mods) -> {
-               InputUtil.Key keycode;
+               InputUtil.KeyCode keycode;
                MinecraftClient mc = MinecraftClient.getInstance();
                if (mc.currentScreen != null) return ActionResult.PASS;
                if (key == -1 || action == 2) return ActionResult.PASS;
@@ -184,12 +184,12 @@ public class Profile {
                if (key <= 7) keycode = InputUtil.Type.MOUSE.createFromCode(key);
                else keycode = InputUtil.Type.KEYSYM.createFromCode(key);
 
-               if (keycode == InputUtil.UNKNOWN_KEY) return ActionResult.PASS;
+               if (keycode == InputUtil.UNKNOWN_KEYCODE) return ActionResult.PASS;
                if (keyBinding.matchesKey(key, scancode) && action == 1) mc.openScreen(jsMacros.keyMacrosScreen);
 
                HashMap<String, Object> args = new HashMap<>();
                args.put("rawkey", keycode);
-               args.put("key", keycode.getTranslationKey());
+               args.put("key", keycode.getName());
                args.put("action", action);
                if (registry.macros.containsKey("KEY")) for (BaseMacro macro : registry.macros.get("KEY").values()) {
                    macro.trigger("KEY", args);

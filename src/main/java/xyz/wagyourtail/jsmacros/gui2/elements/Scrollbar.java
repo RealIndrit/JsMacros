@@ -54,17 +54,17 @@ public class Scrollbar extends Button {
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }
 
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
+    public void render(int mouseX, int mouseY, float delta) {
         if (scrollPages > 1) {
             // mainpart
-            fill(matricies, x + 1, (int) (y + 1 + scrollAmmount), x + width - 1, (int) (y + 1 + scrollAmmount + scrollbarHeight), hilightColor);
+            fill(x + 1, (int) (y + 1 + scrollAmmount), x + width - 1, (int) (y + 1 + scrollAmmount + scrollbarHeight), hilightColor);
 
             // outline and back
-            fill(matricies, x + 1, y + 1, x + width - 1, y + height - 1, color);
-            fill(matricies, x, y, x + 1, y + height, borderColor);
-            fill(matricies, x + width - 1, y, x + width, y + height, borderColor);
-            fill(matricies, x + 1, y, x + width - 1, y + 1, borderColor);
-            fill(matricies, x + 1, y + height - 1, x + width - 1, y + height, borderColor);
+            fill(x + 1, y + 1, x + width - 1, y + height - 1, color);
+            fill(x, y, x + 1, y + height, borderColor);
+            fill(x + width - 1, y, x + width, y + height, borderColor);
+            fill(x + 1, y, x + width - 1, y + 1, borderColor);
+            fill(x + 1, y + height - 1, x + width - 1, y + height, borderColor);
         }
     }
 }

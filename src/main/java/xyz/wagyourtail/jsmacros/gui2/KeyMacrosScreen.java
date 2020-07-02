@@ -21,11 +21,11 @@ public class KeyMacrosScreen extends MacroScreen {
         keyScreen.setColor(0x4FFFFFFF);
         
         eventScreen.onPress = (btn) -> {
-            client.openScreen(new EventMacrosScreen(this));
+            minecraft.openScreen(new EventMacrosScreen(this));
         };
 
         profileScreen.onPress = (btn) -> {
-            client.openScreen(new ProfileScreen(this));
+            minecraft.openScreen(new ProfileScreen(this));
         };
         
         if (Profile.registry.getMacros().containsKey("KEY"))
@@ -34,7 +34,7 @@ public class KeyMacrosScreen extends MacroScreen {
             }
         
         if (jsMacros.jythonFailed) {
-            this.openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, textRenderer, new TranslatableText("jsmacros.jythonfail"), this::addButton, this::removeButton, this::closeOverlay, (conf) -> {
+            this.openOverlay(new ConfirmOverlay(width / 2 - 100, height / 2 - 50, 200, 100, minecraft.textRenderer, new TranslatableText("jsmacros.jythonfail"), this::addButton, this::removeButton, this::closeOverlay, (conf) -> {
                 jsMacros.jythonFailed = false;
             }));
         }

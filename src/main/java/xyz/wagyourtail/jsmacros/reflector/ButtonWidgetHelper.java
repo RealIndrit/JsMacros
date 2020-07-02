@@ -28,7 +28,7 @@ public class ButtonWidgetHelper {
     }
     
     public void setText(String message) {
-        btn.setMessage(new LiteralText(message));
+        btn.setMessage(message);
     }
     
     public boolean getActive() {
