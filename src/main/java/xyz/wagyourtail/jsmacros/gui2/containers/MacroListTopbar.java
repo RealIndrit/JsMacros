@@ -11,7 +11,6 @@ import xyz.wagyourtail.jsmacros.profile.Profile;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 public class MacroListTopbar extends MultiElementContainer {

@@ -11,7 +11,7 @@ import xyz.wagyourtail.jsmacros.events.DeathCallback;
 @Mixin(ClientPlayNetworkHandler.class)
 class jsmacros_ClientPlayNetworkHandler {
     
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;showsDeathScreen()Z"), method="onCombatEvent", cancellable = true)
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V"), method="onCombatEvent", cancellable = true)
     private void jsmacros_onDeath(final CombatEventS2CPacket packet, CallbackInfo info) {
         DeathCallback.EVENT.invoker().interact();
     }

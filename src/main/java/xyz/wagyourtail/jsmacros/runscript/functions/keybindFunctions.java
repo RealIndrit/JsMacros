@@ -22,8 +22,4 @@ public class keybindFunctions {
     public void key(KeyCode keyBind, boolean keyState) {
         KeyBinding.setKeyPressed(keyBind, keyState);
     }
-    
-    public void key(KeyBinding keyBind, boolean keyState) {
-        keyBind.setPressed(keyState);
-    }
 }

@@ -9,12 +9,13 @@ import xyz.wagyourtail.jsmacros.runscript.functions.hudFunctions;
 
 import org.spongepowered.asm.mixin.injection.At;
 
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.WorldRenderer;
 
-@Mixin(WorldRenderer.class)
+@Mixin(GameRenderer.class)
 public class jsmacros_WorldRendererMixin {
-    @Inject(at = @At("TAIL"), method = "render")
-    public void jsmacros_render(CallbackInfo info) {
+    @Inject(at = @At(value = "INVOKE_STRING", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V", args = {"ldc=hand"}), method = "renderCenter")
+    public void jsmacros_render(float tickDelta, long endTime, CallbackInfo info) {
         for (Draw3D d : hudFunctions.renders) {
             d.render();
         }

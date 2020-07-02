@@ -23,15 +23,15 @@ public class EntityHelper {
     }
     
     public double getX() {
-        return e.getX();
+        return e.x;
     }
 
     public double getY() {
-        return e.getY();
+        return e.y;
     }
     
     public double getZ() {
-        return e.getZ();
+        return e.z;
     }
     
     public float getPitch() {

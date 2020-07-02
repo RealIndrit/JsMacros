@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
 
 public abstract class MultiElementContainer extends DrawableHelper {
     protected int x;

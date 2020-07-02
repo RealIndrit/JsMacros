@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.BufferBuilder;
@@ -50,21 +50,20 @@ public class Draw3D {
     public void render() {
         MinecraftClient mc  = MinecraftClient.getInstance();
         //setup
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.lineWidth(2.5F);
-        RenderSystem.disableTexture();
-        RenderSystem.disableDepthTest();
-        RenderSystem.matrixMode(5889);
+        GlStateManager.enableBlend();
+        GlStateManager.lineWidth(2.5F);
+        GlStateManager.disableTexture();
+        GlStateManager.disableDepthTest();
+        GlStateManager.matrixMode(5889);
         
-        RenderSystem.pushMatrix();
+        GlStateManager.pushMatrix();
         
         // offsetRender
         Camera camera = mc.gameRenderer.getCamera();
         Vec3d camPos = camera.getPos();
-        RenderSystem.rotatef(MathHelper.wrapDegrees(camera.getPitch()), 1, 0, 0);
-        RenderSystem.rotatef(MathHelper.wrapDegrees(camera.getYaw() + 180.0F), 0, 1, 0);
-        RenderSystem.translated(-camPos.x, -camPos.y, -camPos.z);
+        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getPitch()), 0, 0, 0);
+        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getYaw() + 180.0F), 0, 0, 0);
+        GlStateManager.translated(-camPos.x, -camPos.y, -camPos.z);
         
         //render
         for (box b : boxes) {
@@ -75,13 +74,13 @@ public class Draw3D {
             l.render();
         }
         
-        RenderSystem.popMatrix();
+        GlStateManager.popMatrix();
         
         //reset
-        RenderSystem.matrixMode(5888);
-        RenderSystem.enableDepthTest();
-        RenderSystem.enableTexture();
-        RenderSystem.disableBlend();
+        GlStateManager.matrixMode(5888);
+        GlStateManager.enableDepthTest();
+        GlStateManager.enableTexture();
+        GlStateManager.disableBlend();
     }
     
     public static class box {

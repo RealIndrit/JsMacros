@@ -3,7 +3,7 @@ package xyz.wagyourtail.jsmacros.gui2.containers;
 import java.io.File;
 import java.util.function.Consumer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import xyz.wagyourtail.jsmacros.jsMacros;
 import xyz.wagyourtail.jsmacros.config.RawMacro;
@@ -16,7 +16,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -172,10 +171,10 @@ public class MacroContainer extends MultiElementContainer {
                     this.mc.getTextureManager().bindTexture(key_both_tex);
                     break;
                 }
-                RenderSystem.enableBlend();
+                GlStateManager.enableBlend();
                 blit(x + w / 4 - height + 2, y + 2, height-4, height-4, 0, 0, 32, 32, 32, 32);
                 //drawTexture(x + w / 4 - height + 2, y + 2, height-4, height-4, 0, 0, 32, 32, 32, 32);
-                RenderSystem.disableBlend();
+                GlStateManager.disableBlend();
             }
             
             // border

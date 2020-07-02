@@ -3,12 +3,11 @@ package xyz.wagyourtail.jsmacros.runscript.classes;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -28,11 +27,11 @@ public class Draw2D extends DrawableHelper {
     }
     
     public int getWidth() {
-        return mc.getWindow().getScaledWidth();
+        return mc.window.getScaledWidth();
     }
     
     public int getHeight() {
-        return mc.getWindow().getScaledHeight();
+        return mc.window.getScaledHeight();
     }
     
     public ArrayList<text> getTexts() {
@@ -94,19 +93,19 @@ public class Draw2D extends DrawableHelper {
     
     
     public void render() {
-        RenderSystem.pushMatrix();
+        GlStateManager.pushMatrix();
         for (rect r : rectFields) {
             r.render();
         }
-        RenderSystem.popMatrix();
+        GlStateManager.popMatrix();
         for (item i : itemFields) {
             i.render();
         }
-        RenderSystem.pushMatrix();
+        GlStateManager.pushMatrix();
         for (text t : textFields) {
             t.render();
         }
-        RenderSystem.popMatrix();
+        GlStateManager.popMatrix();
     }
     
     public static class item {
