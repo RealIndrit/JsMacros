@@ -1,7 +1,6 @@
 package xyz.wagyourtail.jsmacros.reflector;
 
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.LiteralText;
 
 public class ButtonWidgetHelper {
     private ButtonWidget btn;

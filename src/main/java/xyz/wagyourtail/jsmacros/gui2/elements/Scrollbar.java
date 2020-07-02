@@ -2,7 +2,6 @@ package xyz.wagyourtail.jsmacros.gui2.elements;
 
 import java.util.function.Consumer;
 
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 public class Scrollbar extends Button {
