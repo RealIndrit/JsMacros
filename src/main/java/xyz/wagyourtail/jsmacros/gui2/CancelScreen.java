@@ -33,7 +33,7 @@ public class CancelScreen extends Screen {
     }
 
     public void addContainer(thread t) {
-        running.add(new RunningThreadContainer(10, topScroll + running.size() * 15, width - 26, 13, textRenderer, this::addButton, this::removeContainer, t));
+        running.add(new RunningThreadContainer(10, topScroll + running.size() * 15, width - 26, 13, minecraft.textRenderer, this::addButton, this::removeContainer, t));
         Collections.sort(running, new RTCSort());
         s.setScrollPages(running.size() * 15 / (double)(height - 20));
     }
@@ -69,7 +69,7 @@ public class CancelScreen extends Screen {
     }
     
     public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matricies, 0);
+        this.renderBackground(0);
         ArrayList<thread> tl = RunScript.getThreads();
         
         ArrayList<RunningThreadContainer> rn;
@@ -81,7 +81,7 @@ public class CancelScreen extends Screen {
         
         for (RunningThreadContainer r : rn) {
             tl.remove(r.t);
-            r.render(matricies, mouseX, mouseY, delta);
+            r.render(mouseX, mouseY, delta);
         }
         
         for (thread t : tl) {
@@ -89,16 +89,16 @@ public class CancelScreen extends Screen {
         }
 
         for (AbstractButtonWidget b : buttons) {
-            ((Button) b).render(matricies, mouseX, mouseY, delta);
+            ((Button) b).render(mouseX, mouseY, delta);
         }
     }
 
     public void removed() {
-        client.keyboard.enableRepeatEvents(false);
+        minecraft.keyboard.enableRepeatEvents(false);
     }
 
     public void onClose() {
-        client.openScreen(parent);
+        minecraft.openScreen(parent);
     }
 
     public static class RTCSort implements Comparator<RunningThreadContainer> {
