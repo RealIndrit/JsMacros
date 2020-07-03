@@ -68,7 +68,7 @@ public class CancelScreen extends Screen {
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
     
-    public void render(MatrixStack matricies, int mouseX, int mouseY, float delta) {
+    public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
         ArrayList<thread> tl = RunScript.getThreads();
         
