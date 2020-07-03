@@ -6,7 +6,6 @@ import java.util.Comparator;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import xyz.wagyourtail.jsmacros.gui2.containers.RunningThreadContainer;
 import xyz.wagyourtail.jsmacros.gui2.elements.Button;
