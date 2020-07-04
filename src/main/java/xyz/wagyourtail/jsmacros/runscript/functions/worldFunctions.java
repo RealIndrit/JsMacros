@@ -56,4 +56,9 @@ public class worldFunctions {
         }
         return entities;
     }
+    
+    public String getDimension() {
+        MinecraftClient mc = MinecraftClient.getInstance();
+        return mc.world.getDimension().getType().toString();
+    }
 }
