@@ -75,8 +75,9 @@ public class jsMacros implements ClientModInitializer {
     }
     
     static public String getScreenName(Screen s) {
+        if (s == null) return null;
         if (s instanceof ContainerScreen) {
-            //add more ?
+               //add more ?
             if (s instanceof GenericContainerScreen) {
                 return String.format("%d row chest", ((GenericContainerScreen) s).getContainer().getRows());
             } else if (s instanceof Generic3x3ContainerScreen) {
