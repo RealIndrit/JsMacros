@@ -171,9 +171,9 @@ public class Inventory {
                     if (h instanceof AbstractDonkeyEntity && ((AbstractDonkeyEntity) h).hasChest()) {
                         map.put("container", jsMacros.range(i, slots - 9 - 27));
                     }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else if (inventory instanceof AnvilScreen || inventory instanceof GrindstoneScreen || inventory instanceof CartographyTableScreen) {
                 map.put("output", new int[] { slots - 9 - 27 - 1 });
                 map.put("input", jsMacros.range(slots - 9 - 27 - 1));
