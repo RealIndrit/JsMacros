@@ -4,7 +4,24 @@ import java.util.HashMap;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.CraftingTableScreen;
+import net.minecraft.client.gui.screen.ingame.EnchantingScreen;
+import net.minecraft.client.gui.screen.ingame.AnvilScreen;
+import net.minecraft.client.gui.screen.ingame.BeaconScreen;
+import net.minecraft.client.gui.screen.ingame.BlastFurnaceScreen;
+import net.minecraft.client.gui.screen.ingame.BrewingStandScreen;
+import net.minecraft.client.gui.screen.ingame.CartographyTableScreen;
+import net.minecraft.client.gui.screen.ingame.FurnaceScreen;
+import net.minecraft.client.gui.screen.ingame.Generic3x3ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
+import net.minecraft.client.gui.screen.ingame.GrindstoneScreen;
+import net.minecraft.client.gui.screen.ingame.HopperScreen;
+import net.minecraft.client.gui.screen.ingame.HorseScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screen.ingame.LoomScreen;
+import net.minecraft.client.gui.screen.ingame.ShulkerBoxScreen;
+import net.minecraft.client.gui.screen.ingame.SmokerScreen;
+import net.minecraft.client.gui.screen.ingame.StonecutterScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.container.SlotActionType;
@@ -95,31 +112,62 @@ public class Inventory {
     public String getType() {
         return jsMacros.getScreenName(this.inventory);
     }
-    
+
     public HashMap<String, int[]> getMap() {
         HashMap<String, int[]> map = new HashMap<>();
         int slots = getTotalSlots();
         if (this.inventory instanceof InventoryScreen) {
-            map.put("hotbar", jsMacros.range(slots-10, slots-1)); //range(36, 45);
-            map.put("offhand", new int[] {slots-1}); // range(45, 46);
-            map.put("main", jsMacros.range(slots-10-27, slots-10)); //range(9, 36);
-            map.put("boots", new int[] {slots-10-27-1}); // range(8, 9);
-            map.put("leggings", new int[] {slots-10-27-2}); // range(7, 8);
-            map.put("chestplate", new int[] {slots-10-27-3}); // range(6, 7);
-            map.put("helmet", new int[] {slots-10-27-4}); // range(5, 6);
-            map.put("crafting_in", jsMacros.range(slots-10-27-4-4, slots-10-27-4)); // range(1, 5);
-            map.put("craft_out", new int[] {slots-10-27-4-4-1});
+            map.put("hotbar", jsMacros.range(slots - 10, slots - 1)); // range(36, 45);
+            map.put("offhand", new int[] { slots - 1 }); // range(45, 46);
+            map.put("main", jsMacros.range(slots - 10 - 27, slots - 10)); // range(9, 36);
+            map.put("boots", new int[] { slots - 10 - 27 - 1 }); // range(8, 9);
+            map.put("leggings", new int[] { slots - 10 - 27 - 2 }); // range(7, 8);
+            map.put("chestplate", new int[] { slots - 10 - 27 - 3 }); // range(6, 7);
+            map.put("helmet", new int[] { slots - 10 - 27 - 4 }); // range(5, 6);
+            map.put("crafting_in", jsMacros.range(slots - 10 - 27 - 4 - 4, slots - 10 - 27 - 4)); // range(1, 5);
+            map.put("craft_out", new int[] { slots - 10 - 27 - 4 - 4 - 1 });
         } else {
-            map.put("hotbar", jsMacros.range(slots-9, slots));
-            map.put("main", jsMacros.range(slots-9-27, slots-9));
+            map.put("hotbar", jsMacros.range(slots - 9, slots));
+            map.put("main", jsMacros.range(slots - 9 - 27, slots - 9));
+            if (inventory instanceof GenericContainerScreen || inventory instanceof Generic3x3ContainerScreen || inventory instanceof HopperScreen || inventory instanceof ShulkerBoxScreen) {
+                map.put("container", jsMacros.range(slots - 9 - 27));
+            } else if (inventory instanceof BeaconScreen) {
+                map.put("slot", new int[] { slots - 9 - 27 - 1 });
+            } else if (inventory instanceof BlastFurnaceScreen || inventory instanceof FurnaceScreen || inventory instanceof SmokerScreen) {
+                map.put("output", new int[] { slots - 9 - 27 - 1 });
+                map.put("fuel", new int[] { slots - 9 - 27 - 2 });
+                map.put("input", new int[] { slots - 9 - 27 - 3 });
+            } else if (inventory instanceof BrewingStandScreen) {
+                map.put("fuel", new int[] { slots - 9 - 27 - 1 });
+                map.put("input", new int[] { slots - 9 - 27 - 2 });
+                map.put("output", jsMacros.range(slots - 9 - 27 - 2));
+            } else if (inventory instanceof CraftingTableScreen) {
+                map.put("input", jsMacros.range(slots - 9 - 27 - 9, slots - 9 - 27));
+                map.put("output", new int[] { slots - 9 - 27 - 10 });
+            } else if (inventory instanceof EnchantingScreen) {
+                map.put("lapis", new int[] { slots - 9 - 27 - 1 });
+                map.put("item", new int[] { slots - 9 - 27 - 2 });
+            } else if (inventory instanceof GrindstoneScreen) {
+                // TODO
+            } else if (inventory instanceof LoomScreen) {
+                // TODO
+            } else if (inventory instanceof StonecutterScreen) {
+                // TODO
+            } else if (inventory instanceof CartographyTableScreen) {
+                // TODO
+            } else if (inventory instanceof HorseScreen) {
+                // TODO
+            } else if (inventory instanceof AnvilScreen) {
+                map.put("output", new int[] { slots - 9 - 27 - 1 });
+                map.put("input", jsMacros.range(slots - 9 - 27 - 1));
+            }
         }
-        
+
         return map;
     }
 
-    
     public ContainerScreen<?> getRawContainer() {
         return this.inventory;
     }
-    
+
 }
