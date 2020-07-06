@@ -1,5 +1,6 @@
 package xyz.wagyourtail.jsmacros.runscript.classes;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
@@ -9,6 +10,8 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.container.Slot;
 import net.minecraft.container.SlotActionType;
+import net.minecraft.entity.passive.AbstractDonkeyEntity;
+import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.item.ItemStack;
 import xyz.wagyourtail.jsmacros.jsMacros;
 import xyz.wagyourtail.jsmacros.reflector.ItemStackHelper;
@@ -149,17 +152,29 @@ public class Inventory {
             } else if (inventory instanceof EnchantingScreen) {
                 map.put("lapis", new int[] { slots - 9 - 27 - 1 });
                 map.put("item", new int[] { slots - 9 - 27 - 2 });
-            } else if (inventory instanceof GrindstoneScreen) {
-                // TODO
             } else if (inventory instanceof LoomScreen) {
-                // TODO
+                map.put("output", new int[] { slots - 9 - 27 - 1 });
+                map.put("pattern", new int[] { slots - 9 - 27 - 2 });
+                map.put("dye", new int[] { slots - 9 - 27 - 3 });
+                map.put("banner", new int[] { slots - 9 - 27 - 4 });
             } else if (inventory instanceof StonecutterScreen) {
-                // TODO
-            } else if (inventory instanceof CartographyTableScreen) {
-                // TODO
+                map.put("output", new int[] { slots - 9 - 27 - 1 });
+                map.put("input", new int[] { slots - 9 - 27 - 2 });
             } else if (inventory instanceof HorseScreen) {
-                // TODO
-            } else if (inventory instanceof AnvilScreen) {
+                try {
+                    Field entity = HorseScreen.class.getField("entity");
+                    entity.setAccessible(true);
+                    HorseBaseEntity h = (HorseBaseEntity) entity.get(inventory);
+                    int i = 0;
+                    if (h.canBeSaddled()) map.put("saddle", new int[] {i++});
+                    if (h.canEquip()) map.put("armor", new int[] {i++});
+                    if (h instanceof AbstractDonkeyEntity && ((AbstractDonkeyEntity) h).hasChest()) {
+                        map.put("container", jsMacros.range(i, slots - 9 - 27));
+                    }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            } else if (inventory instanceof AnvilScreen || inventory instanceof GrindstoneScreen || inventory instanceof CartographyTableScreen) {
                 map.put("output", new int[] { slots - 9 - 27 - 1 });
                 map.put("input", jsMacros.range(slots - 9 - 27 - 1));
             }
