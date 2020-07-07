@@ -193,7 +193,7 @@ public class Profile {
             else keycode = InputUtil.Type.KEYSYM.createFromCode(key);
 
             if (keycode == InputUtil.UNKNOWN_KEYCODE) return ActionResult.PASS;
-            if (keyBinding.matchesKey(key, scancode) && action == 1) mc.openScreen(jsMacros.keyMacrosScreen);
+            if (keyBinding.matchesKey(key, scancode) && action == 1 && mc.currentScreen == null) mc.openScreen(jsMacros.keyMacrosScreen);
 
             HashMap<String, Object> args = new HashMap<>();
             args.put("rawkey", keycode);
