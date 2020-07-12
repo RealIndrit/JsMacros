@@ -55,7 +55,7 @@ public class hudFunctions {
     }
     
     public Draw3D createDraw3D() {
-        return null;
+        return new Draw3D();
     }
     
     public void registerDraw3D(Draw3D draw) {

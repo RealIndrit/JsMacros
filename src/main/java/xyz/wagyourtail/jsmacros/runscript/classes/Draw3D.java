@@ -62,9 +62,6 @@ public class Draw3D {
         // offsetRender
         Camera camera = mc.gameRenderer.getCamera();
         Vec3d camPos = camera.getPos();
-        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getPitch()), 0, 0, 0);
-        GlStateManager.rotatef(MathHelper.wrapDegrees(camera.getYaw() + 180.0F), 0, 0, 0);
-        // GlStateManager.translated(-camPos.x, -camPos.y, -camPos.z);
 
         // render
         for (box b : boxes) {
@@ -150,7 +147,26 @@ public class Draw3D {
                 tess.draw();
             }
 
-            WorldRenderer.drawBoxOutline(x1 - camPos.x, y1 - camPos.y, z1 - camPos.z, x2 - camPos.x, y2 - camPos.y, z2 - camPos.z, r, g, b, a);
+            buf.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
+
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y1 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y2 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y2 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y2 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y2 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y2 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z2 - camPos.z).color(r, g, b, 0).next();
+            buf.vertex(x1 - camPos.x, y2 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y1 - camPos.y, z2 - camPos.z).color(r, g, b, 0).next();
+            buf.vertex(x2 - camPos.x, y2 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, 0).next();
+            buf.vertex(x2 - camPos.x, y2 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            
+            tess.draw();
         }
     }
 
@@ -194,9 +210,9 @@ public class Draw3D {
             Tessellator tess = Tessellator.getInstance();
             BufferBuilder buf = tess.getBuffer();
             buf.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
-            buf.vertex(x1-camPos.x, y1-camPos.y, z1-camPos.z).color(r, g, b, a).next();
-            buf.vertex(x1-camPos.x, y1-camPos.y, z1-camPos.z).color(r, g, b, a).next();
-            buf.vertex(x2-camPos.x, y2-camPos.y, z2-camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x1 - camPos.x, y1 - camPos.y, z1 - camPos.z).color(r, g, b, a).next();
+            buf.vertex(x2 - camPos.x, y2 - camPos.y, z2 - camPos.z).color(r, g, b, a).next();
             tess.draw();
         }
     }
