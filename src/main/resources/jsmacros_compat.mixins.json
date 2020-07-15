@@ -6,7 +6,9 @@
     "client": [
         "jsmacros_InGameHudMixin",
         "jsmacros_MinecraftClientMixin",
-        "jsmacros_WorldRendererMixin"
+        "jsmacros_WorldRendererMixin",
+        "jsmacros_ContainerScreenMixin",
+        "jsmacros_HorseScreenMixin"
     ],
     "injectors": {
         "defaultRequire": 1

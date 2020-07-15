@@ -63,8 +63,8 @@ public class Button extends AbstractPressableButtonWidget {
             // fill
             if (mouseX - x >= 0 && mouseX - x - width <= 0 && mouseY - y >= 0 && mouseY - y - height <= 0 && this.active) {
                 hovering = true;
-            } else {
                 fill(x + 1, y + 1, x + width - 1, y + height - 1, hilightColor);
+            } else {
                 hovering = false;
                 fill(x + 1, y + 1, x + width - 1, y + height - 1, color);
             }
