@@ -206,8 +206,8 @@ public class ProfileScreen extends Screen {
 
         // plist topbar
         int w = this.width / 2 - 40;
-        drawCenteredString(minecraft.textRenderer, profText.asString(), w * 3 / 8 + 20, 24, 0xFFFFFF);
-        drawCenteredString(minecraft.textRenderer, minecraft.textRenderer.trimToWidth(defText.asString(), w / 4), w * 7 / 8 + 20, 24, 0xFFFFFF);
+        drawCenteredString(minecraft.textRenderer, profText.getString(), w * 3 / 8 + 20, 24, 0xFFFFFF);
+        drawCenteredString(minecraft.textRenderer, minecraft.textRenderer.trimToWidth(defText.getString(), w / 4), w * 7 / 8 + 20, 24, 0xFFFFFF);
         fill(20, 33, this.width / 2 - 20, 34, 0xFFFFFFFF);
 
         // pname

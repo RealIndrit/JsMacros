@@ -17,9 +17,10 @@ public class Button extends AbstractPressableButtonWidget {
     protected int lines;
     protected int vcenter;
     public Consumer<Button> onPress;
+    public boolean hovering = false;
     
     public Button(int x, int y, int width, int height, int color, int borderColor, int hilightColor, int textColor, Text message, Consumer<Button> onPress) {
-        super(x, y, width, height, message.asString());
+        super(x, y, width, height, message.getString());
         this.color = color;
         this.borderColor = borderColor;
         this.hilightColor = hilightColor;
@@ -37,8 +38,8 @@ public class Button extends AbstractPressableButtonWidget {
     }
     
     public void setMessage(Text message) {
-        super.setMessage(message.asString());
-        this.text = new ArrayList<>(this.mc.textRenderer.wrapStringToWidthAsList(message.asString(), width - 4));
+        super.setMessage(message.getString());
+        this.text = new ArrayList<>(this.mc.textRenderer.wrapStringToWidthAsList(message.getString(), width - 4));
         this.lines = Math.min(Math.max((height - 2) / mc.textRenderer.fontHeight, 1), text.size());
         this.vcenter = ((height - 4) - (lines * mc.textRenderer.fontHeight)) / 2;
     }
@@ -60,11 +61,13 @@ public class Button extends AbstractPressableButtonWidget {
     public void render(int mouseX, int mouseY, float delta) {
         if (this.visible) {
             // fill
-            if (mouseX - x >= 0 && mouseX - x - width <= 0 && mouseY - y >= 0 && mouseY - y - height <= 0 && this.active)
+            if (mouseX - x >= 0 && mouseX - x - width <= 0 && mouseY - y >= 0 && mouseY - y - height <= 0 && this.active) {
+                hovering = true;
+            } else {
                 fill(x + 1, y + 1, x + width - 1, y + height - 1, hilightColor);
-            else
+                hovering = false;
                 fill(x + 1, y + 1, x + width - 1, y + height - 1, color);
-            
+            }
             // outline
             fill(x, y, x + 1, y + height, borderColor);
             fill(x + width - 1, y, x + width, y + height, borderColor);
@@ -74,7 +77,14 @@ public class Button extends AbstractPressableButtonWidget {
         }
     }
     
-
+    public void onClick(double mouseX, double mouseY) {
+        //super.onClick(mouseX, mouseY);
+    }
+    
+    public void onRelease(double mouseX, double mouseY) {
+        super.onClick(mouseX, mouseY);
+    }
+    
     @Override
     public void onPress() {
         if (onPress != null) onPress.accept(this);

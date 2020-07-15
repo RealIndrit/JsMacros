@@ -175,7 +175,7 @@ public class FileChooser extends OverlayContainer {
     public void render(int mouseX, int mouseY, float delta) {
         renderBackground();
 
-        textRenderer.drawTrimmed(this.dirname.asString(), x + 3, y + 3, width - 14, 0xFFFFFF);
+        textRenderer.drawTrimmed(this.dirname.getString(), x + 3, y + 3, width - 14, 0xFFFFFF);
 
         fill(x + 2, y + 12, x + width - 2, y + 13, 0xFFFFFFFF);
         fill(x + 2, y + height - 15, x + width - 2, y + height - 14, 0xFFFFFFFF);

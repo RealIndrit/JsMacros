@@ -26,7 +26,7 @@ public class ConfirmOverlay extends OverlayContainer {
     }
     
     public void setMessage(Text message) {
-        this.text = new ArrayList<>(textRenderer.wrapStringToWidthAsList(message.asString(), width - 6));
+        this.text = new ArrayList<>(textRenderer.wrapStringToWidthAsList(message.getString(), width - 6));
         this.lines = Math.min(Math.max((height - 15) / textRenderer.fontHeight, 1), text.size());
         this.vcenter = ((height - 15) - (lines * mc.textRenderer.fontHeight)) / 2;
     }

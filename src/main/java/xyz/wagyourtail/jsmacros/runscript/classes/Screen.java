@@ -134,7 +134,7 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         if (dirt) this.renderDirtBackground(0);
         this.renderBackground(0);
         
-        this.drawCenteredString(minecraft.textRenderer, this.title.asString(), this.width / 2, 20, 0xFFFFFF);
+        this.drawCenteredString(minecraft.textRenderer, this.title.getString(), this.width / 2, 20, 0xFFFFFF);
         
         for (TextFieldWidget w : textFieldWidgets) {
             w.render(mouseX, mouseY, delta);
