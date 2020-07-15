@@ -158,14 +158,15 @@ public class MacroScreen extends Screen {
 
         topbar.render(mouseX, mouseY, delta);
 
-        for (MacroContainer macro : macros) {
-            macro.render(mouseX, mouseY, delta);
-        }
 
         for (AbstractButtonWidget b : buttons) {
             ((Button) b).render(mouseX, mouseY, delta);
         }
 
+        for (MacroContainer macro : macros) {
+            macro.render(mouseX, mouseY, delta);
+        }
+        
         drawCenteredString(minecraft.textRenderer, jsMacros.profile.profileName, this.width * 7 / 12, 5, 0x7F7F7F);
 
         fill(this.width * 5 / 6 - 1, 0, this.width * 5 / 6 + 1, 20, 0xFFFFFFFF);

@@ -41,7 +41,7 @@ public class TextPrompt extends OverlayContainer {
 
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground();
-        drawCenteredString(textRenderer, message.asString(), x + width / 2, y + 5, 0xFFFFFF);
+        drawCenteredString(textRenderer, message.getString(), x + width / 2, y + 5, 0xFFFFFF);
         super.render(mouseX, mouseY, delta);
     }
 
