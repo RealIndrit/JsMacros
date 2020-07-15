@@ -181,6 +181,20 @@ public class FileChooser extends OverlayContainer {
         fill(x + 2, y + height - 15, x + width - 2, y + height - 14, 0xFFFFFFFF);
 //        textRenderer.draw(, mouseX, mouseY, color, shadow, matrix, vertexConsumers, seeThrough, backgroundColor, light)
         super.render(mouseX, mouseY, delta);
+        for (AbstractButtonWidget b : this.buttons) {
+            if (((Button) b).hovering) {
+                // border
+                int width = textRenderer.getStringWidth(b.getMessage());
+                fill(mouseX-3, mouseY, mouseX+width+3, mouseY+1, 0x7F7F7F7F);
+                fill(mouseX+width+2, mouseY-textRenderer.fontHeight - 3, mouseX+width+3, mouseY, 0x7F7F7F7F);
+                fill(mouseX-3, mouseY-textRenderer.fontHeight - 3, mouseX-2, mouseY, 0x7F7F7F7F);
+                fill(mouseX-3, mouseY-textRenderer.fontHeight - 4, mouseX+width+3, mouseY-textRenderer.fontHeight - 3, 0x7F7F7F7F);
+                
+                // fill
+                drawString(textRenderer, b.getMessage(), mouseX, mouseY-textRenderer.fontHeight - 1, 0xFFFFFF);
+                fill(mouseX-2, mouseY-textRenderer.fontHeight - 3, width+2, mouseY, 0xFF000000);
+            }
+        }
     }
 
     public static class fileObj {
