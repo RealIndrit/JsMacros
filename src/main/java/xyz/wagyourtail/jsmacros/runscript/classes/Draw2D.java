@@ -19,6 +19,7 @@ public class Draw2D extends DrawableHelper {
     public ArrayList<rect> rectFields = new ArrayList<>();
     public ArrayList<item> itemFields = new ArrayList<>();
     public Consumer<Draw2D> onInit;
+    public Consumer<String> catchInit;
     
     public MinecraftClient mc;
     
@@ -87,7 +88,16 @@ public class Draw2D extends DrawableHelper {
     public void init() {
         textFields.clear();
         if (onInit != null) {
-            onInit.accept(this);
+            try {
+                onInit.accept(this);
+            } catch(Exception e) {
+                e.printStackTrace();
+                try {
+                    if (catchInit != null) catchInit.accept(e.toString());
+                } catch (Exception f) {
+                    f.printStackTrace();
+                }
+            }
         }
     }
     
