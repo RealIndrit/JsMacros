@@ -192,7 +192,7 @@ public class FileChooser extends OverlayContainer {
                 
                 // fill
                 drawString(textRenderer, b.getMessage(), mouseX, mouseY-textRenderer.fontHeight - 1, 0xFFFFFF);
-                fill(mouseX-2, mouseY-textRenderer.fontHeight - 3, width+2, mouseY, 0xFF000000);
+                fill(mouseX-2, mouseY-textRenderer.fontHeight - 3, mouseX+width+2, mouseY, 0xFF000000);
             }
         }
     }
