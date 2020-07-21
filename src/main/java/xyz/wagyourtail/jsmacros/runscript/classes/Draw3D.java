@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.runscript.classes;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
@@ -27,8 +28,8 @@ public class Draw3D {
     public void removeBox(box b) {
         boxes.remove(b);
     }
-
-    public ArrayList<box> getBoxes() {
+    
+    public List<box> getBoxes() {
         return boxes;
     }
 
@@ -41,8 +42,8 @@ public class Draw3D {
     public void removeLine(line l) {
         lines.remove(l);
     }
-
-    public ArrayList<line> getLines() {
+    
+    public List<line> getLines() {
         return lines;
     }
 
