@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.reflector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.client.options.CloudRenderMode;
 import net.minecraft.client.options.GameOptions;
@@ -39,8 +40,8 @@ public class OptionsHelper {
     public void setGraphicsMode(int mode) {
         options.fancyGraphics = mode == 1;
     }
-    public ArrayList<String> getResourcePacks() {
-        return (ArrayList<String>) options.resourcePacks;
+    public List<String> getResourcePacks() {
+        return new ArrayList<>(options.resourcePacks);
     }
     public boolean isRightHanded() {
         return options.mainArm == Arm.RIGHT;
