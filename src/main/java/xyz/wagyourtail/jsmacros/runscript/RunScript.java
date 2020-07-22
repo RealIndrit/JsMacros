@@ -194,6 +194,7 @@ public class RunScript {
                     binds.putMember("player", new playerFunctions());
                     binds.putMember("hud", new hudFunctions());
                     binds.putMember("request", new requestFunctions());
+                    binds.putMember("fs", new requestFunctions());
 
                     //Run Script
                     
