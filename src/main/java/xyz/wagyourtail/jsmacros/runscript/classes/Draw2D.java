@@ -110,6 +110,19 @@ public class Draw2D extends DrawableHelper {
     
     
     public void render() {
+        
+        ArrayList<rect> rectFields;
+        ArrayList<item> itemFields;
+        ArrayList<text> textFields;
+        
+        try {
+            rectFields = new ArrayList<>(this.rectFields);
+            itemFields = new ArrayList<>(this.itemFields);
+            textFields = new ArrayList<>(this.textFields);
+        } catch(Exception e) {
+            return;
+        }
+        
         GlStateManager.pushMatrix();
         for (rect r : rectFields) {
             r.render();

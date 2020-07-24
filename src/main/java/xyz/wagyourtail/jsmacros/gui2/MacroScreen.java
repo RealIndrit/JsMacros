@@ -155,7 +155,18 @@ public class MacroScreen extends Screen {
     
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
-
+        
+        ArrayList<AbstractButtonWidget> buttons;
+        ArrayList<MacroContainer> macros;
+        
+        try {
+            buttons = new ArrayList<>(this.buttons);
+            macros = new ArrayList<>(this.macros);
+        } catch(Exception e) {
+            return;
+        }
+        
+        
         topbar.render(mouseX, mouseY, delta);
 
 

@@ -61,6 +61,17 @@ public class Draw3D {
 
     public void render() {
         MinecraftClient mc = MinecraftClient.getInstance();
+        
+        ArrayList<box> boxes;
+        ArrayList<line> lines;
+        
+        try {
+            boxes = new ArrayList<>(this.boxes);
+            lines = new ArrayList<>(this.lines);
+        } catch (Exception e) {
+            return;
+        }
+        
         // setup
         GlStateManager.enableBlend();
         GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
