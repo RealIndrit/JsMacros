@@ -196,6 +196,16 @@ public class ProfileScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
 
+        ArrayList<ProfileContainer> profiles;
+        ArrayList<AbstractButtonWidget> buttons;
+        
+        try {
+            profiles = new ArrayList<>(this.profiles);
+            buttons = new ArrayList<>(this.buttons);
+        } catch (Exception e) {
+            return;
+        }
+        
         for (ProfileContainer p : profiles) {
             p.render(mouseX, mouseY, delta);
         }
