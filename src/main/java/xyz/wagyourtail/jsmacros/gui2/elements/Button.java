@@ -37,6 +37,10 @@ public class Button extends AbstractPressableButtonWidget {
         this.height = height;
     }
     
+    public boolean canRenderAllText() {
+        return this.text.size() <= this.lines;
+    }
+    
     public void setMessage(Text message) {
         super.setMessage(message.getString());
         this.text = new ArrayList<>(this.mc.textRenderer.wrapStringToWidthAsList(message.getString(), width - 4));
