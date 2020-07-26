@@ -32,7 +32,7 @@ public class FileChooser extends OverlayContainer {
         super(x, y, width, height, textRenderer, addButton, removeButton, close);
         this.setFile = setFile;
         this.directory = directory;
-        if (selected != null) this.selectFile(selected);
+        this.selected = selected;
     }
 
     public void setDir(File dir) {
@@ -131,6 +131,7 @@ public class FileChooser extends OverlayContainer {
         }));
 
         this.setDir(directory);
+        this.selectFile(selected);
     }
 
     public void addFile(File f) {
