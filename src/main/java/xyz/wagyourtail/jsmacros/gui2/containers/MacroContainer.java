@@ -187,7 +187,7 @@ public class MacroContainer extends MultiElementContainer {
             fill(x + width - 1, y + 1, x + width, y + height - 1, 0xFFFFFFFF);
             
             // overlay
-            if (keyBtn.hovering) {
+            if (keyBtn.hovering && !keyBtn.canRenderAllText()) {
                 fill(mouseX-2, mouseY-textRenderer.fontHeight - 3, mouseX+textRenderer.getStringWidth(keyBtn.getMessage())+2, mouseY, 0xFF000000);
                 this.drawString(textRenderer, keyBtn.getMessage(), mouseX, mouseY-textRenderer.fontHeight - 1, 0xFFFFFF);
             }
