@@ -31,8 +31,9 @@ public class Draw3D {
         return b;
     }
     
-    public void removeBox(box b) {
+    public Draw3D removeBox(box b) {
         boxes.remove(b);
+        return this;
     }
     
     public List<box> getBoxes() {
@@ -51,8 +52,9 @@ public class Draw3D {
         return l;
     }
     
-    public void removeLine(line l) {
+    public Draw3D removeLine(line l) {
         lines.remove(l);
+        return this;
     }
     
     public List<line> getLines() {

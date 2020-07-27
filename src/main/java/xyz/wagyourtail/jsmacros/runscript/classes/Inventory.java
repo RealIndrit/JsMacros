@@ -37,33 +37,37 @@ public class Inventory {
         this.wID = this.inventory.getContainer().syncId;
     }
 
-    public void click(int slot, int mousebutton) {
+    public Inventory click(int slot, int mousebutton) {
         SlotActionType act = mousebutton == 2 ? SlotActionType.CLONE : SlotActionType.PICKUP;
         man.method_2906(wID, slot, mousebutton, act, player);
+        return this;
     }
 
-    public void dragClick(int[] slots, int mousebutton) {
+    public Inventory dragClick(int[] slots, int mousebutton) {
         mousebutton = mousebutton == 0 ? 1 : 5;
         man.method_2906(wID, -999, mousebutton - 1, SlotActionType.QUICK_CRAFT, player); // start drag click
         for (int i : slots) {
             man.method_2906(wID, i, mousebutton, SlotActionType.QUICK_CRAFT, player);
         }
         man.method_2906(wID, -999, mousebutton + 1, SlotActionType.QUICK_CRAFT, player);
+        return this;
     }
 
-    public void closeAndDrop() {
+    public Inventory closeAndDrop() {
         ItemStack held = player.inventory.getCursorStack();
         if (!held.isEmpty()) man.method_2906(wID, -999, 0, SlotActionType.PICKUP, player);
         player.closeContainer();
         this.inventory = null;
+        return this;
     }
 
     public void close() {
         player.closeContainer();
     }
 
-    public void quick(int slot) {
+    public Inventory quick(int slot) {
         man.method_2906(wID, slot, 0, SlotActionType.QUICK_MOVE, player);
+        return this;
     }
 
     public ItemStackHelper getHeld() {
@@ -78,25 +82,28 @@ public class Inventory {
         return this.inventory.getContainer().slots.size();
     }
 
-    public void split(int slot1, int slot2) throws Exception {
+    public Inventory split(int slot1, int slot2) throws Exception {
         if (slot1 == slot2) throw new Exception("must be 2 different slots.");
         if (!getSlot(slot1).isEmpty() || !getSlot(slot2).isEmpty()) throw new Exception("slots must be empty.");
         man.method_2906(wID, slot1, 1, SlotActionType.PICKUP, player);
         man.method_2906(wID, slot2, 0, SlotActionType.PICKUP, player);
+        return this;
     }
 
-    public void grabAll(int slot) {
+    public Inventory grabAll(int slot) {
         man.method_2906(wID, slot, 0, SlotActionType.PICKUP, player);
         man.method_2906(wID, slot, 0, SlotActionType.PICKUP_ALL, player);
+        return this;
     }
 
-    public void swap(int slot1, int slot2) {
+    public Inventory swap(int slot1, int slot2) {
         boolean is1 = getSlot(slot1).isEmpty();
         boolean is2 = getSlot(slot2).isEmpty();
-        if (is1 && is2) return;
+        if (is1 && is2) return this;
         if (!is1) man.method_2906(wID, slot1, 0, SlotActionType.PICKUP, player);
         man.method_2906(wID, slot2, 0, SlotActionType.PICKUP, player);
         if (!is2) man.method_2906(wID, slot1, 0, SlotActionType.PICKUP, player);
+        return this;
     }
 
     public int getSlotUnderMouse() {
