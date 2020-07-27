@@ -113,8 +113,9 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         return new ButtonWidgetHelper(button);
     }
     
-    public void removeButton(ButtonWidgetHelper btn) {
+    public Screen removeButton(ButtonWidgetHelper btn) {
         this.buttons.remove(btn.getRaw());
+        return this;
     }
     
     public TextFieldWidgetHelper addTextInput(int x, int y, int width, int height, String message, BiConsumer<String, Screen> onChange) {
@@ -137,9 +138,10 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         return new TextFieldWidgetHelper(field);
     }
     
-    public void removeTextInput(TextFieldWidgetHelper inp) {
+    public Screen removeTextInput(TextFieldWidgetHelper inp) {
         textFieldWidgets.remove(inp.getRaw());
         children.remove(inp.getRaw());
+        return this;
     }
     
     public text addText(String text, int x, int y, int color, boolean shadow) {
@@ -148,8 +150,9 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         return t;
     }
     
-    public void removeText(text t) {
+    public Screen removeText(text t) {
         textFields.remove(t);
+        return this;
     }
     
 
@@ -165,8 +168,9 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         return r;
     }
     
-    public void removeRect(rect r) {
+    public Screen removeRect(rect r) {
         rectFields.remove(r);
+        return this;
     }
     
     public item addItem(int x, int y, String id, boolean overlay) {
@@ -181,8 +185,9 @@ public class Screen extends net.minecraft.client.gui.screen.Screen {
         return i;
     }
     
-    public void removeItem(item i) {
+    public Screen removeItem(item i) {
         itemFields.remove(i);
+        return this;
     }
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
