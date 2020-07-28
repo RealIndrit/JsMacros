@@ -152,7 +152,7 @@ public class jsMacros implements ClientModInitializer {
         if (s instanceof ContainerScreen) {
                //add more ?
             if (s instanceof GenericContainerScreen) {
-                return String.format("%d row chest", ((GenericContainerScreen) s).getContainer().getRows());
+                return String.format("%d Row Chest", ((GenericContainerScreen) s).getContainer().getRows());
             } else if (s instanceof Generic3x3ContainerScreen) {
                 return "3x3 container";
             } else if (s instanceof AnvilScreen) {
