@@ -131,7 +131,7 @@ public class FileChooser extends OverlayContainer {
         }));
 
         this.setDir(directory);
-        this.selectFile(selected);
+        if (selected != null) this.selectFile(selected);
     }
 
     public void addFile(File f) {
