@@ -1,6 +1,7 @@
 package xyz.wagyourtail.jsmacros.gui2.containers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import net.minecraft.client.MinecraftClient;
@@ -13,7 +14,7 @@ import xyz.wagyourtail.jsmacros.gui2.elements.OverlayContainer;
 
 public class ConfirmOverlay extends OverlayContainer {
     private Consumer<ConfirmOverlay> accept;
-    private ArrayList<String> text;
+    private List<String> text;
     private int lines;
     private int vcenter;
     private MinecraftClient mc;

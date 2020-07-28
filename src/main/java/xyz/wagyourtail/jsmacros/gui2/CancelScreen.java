@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.gui2;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -17,7 +18,7 @@ public class CancelScreen extends Screen {
     protected Screen parent;
     private int topScroll;
     private Scrollbar s;
-    private ArrayList<RunningThreadContainer> running = new ArrayList<>();
+    private List<RunningThreadContainer> running = new ArrayList<>();
 
     public CancelScreen(Screen parent) {
         super(new LiteralText("Cancel"));
@@ -70,9 +71,9 @@ public class CancelScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
         
-        ArrayList<thread> tl;
-        ArrayList<RunningThreadContainer> running;
-        ArrayList<AbstractButtonWidget> buttons;
+        List<thread> tl;
+        List<RunningThreadContainer> running;
+        List<AbstractButtonWidget> buttons;
         
         try {
             tl = RunScript.getThreads();
