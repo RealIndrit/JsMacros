@@ -3,6 +3,7 @@ package xyz.wagyourtail.jsmacros.gui2;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import xyz.wagyourtail.jsmacros.jsMacros;
 import xyz.wagyourtail.jsmacros.config.RawMacro;
@@ -25,7 +26,7 @@ public class MacroScreen extends Screen {
     protected Screen parent;
     protected MacroListTopbar topbar;
     protected Scrollbar macroScroll;
-    protected ArrayList<MacroContainer> macros = new ArrayList<>();
+    protected List<MacroContainer> macros = new ArrayList<>();
     protected int topScroll;
     protected Button keyScreen;
     protected Button eventScreen;
@@ -162,8 +163,8 @@ public class MacroScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
         
-        ArrayList<AbstractButtonWidget> buttons;
-        ArrayList<MacroContainer> macros;
+        List<AbstractButtonWidget> buttons;
+        List<MacroContainer> macros;
         
         try {
             buttons = new ArrayList<>(this.buttons);
