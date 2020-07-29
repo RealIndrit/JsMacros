@@ -8,7 +8,8 @@
         "jsmacros_MinecraftClientMixin",
         "jsmacros_WorldRendererMixin",
         "jsmacros_ContainerScreenMixin",
-        "jsmacros_HorseScreenMixin"
+        "jsmacros_HorseScreenMixin",
+        "jsmacros_BossBarHudMixin"
     ],
     "injectors": {
         "defaultRequire": 1
