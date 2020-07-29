@@ -36,12 +36,12 @@ public class chatFunctions {
     }
     
     public void title(Object title, Object subtitle, int fadeIn, int remain, int fadeOut) {
-        Text titlee = null;
-        Text subtitlee = null;
-        if (title instanceof TextHelper) titlee = ((TextHelper) title).getRaw();
-        else if (title != null) titlee = new LiteralText(title.toString());
-        if (subtitle instanceof TextHelper) subtitlee = ((TextHelper) subtitle).getRaw();
-        else if (subtitle != null) subtitlee = new LiteralText(subtitle.toString());
+        String titlee = null;
+        String subtitlee = null;
+        if (title instanceof TextHelper) titlee = ((TextHelper) title).getRaw().getString();
+        else if (title != null) titlee = title.toString();
+        if (subtitle instanceof TextHelper) subtitlee = ((TextHelper) subtitle).getRaw().getString();
+        else if (subtitle != null) subtitlee = subtitle.toString();
         MinecraftClient mc = MinecraftClient.getInstance();
         mc.inGameHud.setTitles(titlee, subtitlee, fadeIn, remain, fadeOut);
     }
