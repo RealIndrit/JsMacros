@@ -10,6 +10,9 @@ import xyz.wagyourtail.jsmacros.gui2.elements.OverlayContainer;
 import xyz.wagyourtail.jsmacros.gui2.elements.Scrollbar;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
@@ -196,12 +199,12 @@ public class ProfileScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
 
-        ArrayList<ProfileContainer> profiles;
-        ArrayList<AbstractButtonWidget> buttons;
+        List<ProfileContainer> profiles;
+        List<AbstractButtonWidget> buttons;
         
         try {
-            profiles = new ArrayList<>(this.profiles);
-            buttons = new ArrayList<>(this.buttons);
+            profiles = ImmutableList.copyOf(this.profiles);
+            buttons = ImmutableList.copyOf(this.buttons);
         } catch (Exception e) {
             return;
         }

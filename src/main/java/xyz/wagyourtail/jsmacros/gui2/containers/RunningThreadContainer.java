@@ -41,8 +41,9 @@ public class RunningThreadContainer extends MultiElementContainer {
 
     @Override
     public void render(int mouseX, int mouseY, float delta) {
-        if (t.t.isAlive()) {
-            if (this.visible) {
+        try {
+            if (t.t != null && t.t.isAlive()) {
+                if (this.visible) {
                 drawCenteredString(textRenderer, textRenderer.trimToWidth(t.t.getName(), width - 105 - height), x + (width - 105 - height) / 2 + height + 4, y+2, 0xFFFFFF);
                 drawCenteredString(textRenderer, textRenderer.trimToWidth(DurationFormatUtils.formatDurationHMS(System.currentTimeMillis() - t.startTime), 100), x+width - 50 + height, y+2, 0xFFFFFF);
                 fill(x+width-101, y, x+width-100, y+height, 0xFFFFFFFF);
@@ -52,8 +53,11 @@ public class RunningThreadContainer extends MultiElementContainer {
                 fill(x, y + height - 1, x + width, y + height, 0xFFFFFFFF);
                 fill(x, y + 1, x + 1, y + height - 1, 0xFFFFFFFF);
                 fill(x + width - 1, y + 1, x + width, y + height - 1, 0xFFFFFFFF);
+                }
+            } else {
+                if (this.removeContainer != null) this.removeContainer.accept(this);
             }
-        } else {
+        } catch(NullPointerException e) {
             if (this.removeContainer != null) this.removeContainer.accept(this);
         }
     }
