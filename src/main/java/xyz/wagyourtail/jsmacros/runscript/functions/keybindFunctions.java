@@ -50,7 +50,7 @@ public class keybindFunctions extends Functions {
         key(getKeyCode(keyName), keyState);
     }
     
-    public void key(Key keyBind, boolean keyState) {
+    public void key(KeyCode keyBind, boolean keyState) {
         if (keyState) KeyBinding.onKeyPressed(keyBind);
         KeyBinding.setKeyPressed(keyBind, keyState);
     }
