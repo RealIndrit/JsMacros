@@ -31,7 +31,7 @@ public class keybindFunctions extends Functions {
         MinecraftClient mc = MinecraftClient.getInstance();
         Map<String, String> keys = new HashMap<>();
         for (KeyBinding key : mc.options.keysAll) {
-            keys.put(key.getTranslationKey(), key.getBoundKeyTranslationKey());
+            keys.put(key.getId(), key.getName());
         }
         return keys;
     }
@@ -39,8 +39,8 @@ public class keybindFunctions extends Functions {
     public void setKeyBind(String bind, String key) {
         MinecraftClient mc = MinecraftClient.getInstance();
         for (KeyBinding keybind : mc.options.keysAll) {
-            if (keybind.getBoundKeyTranslationKey().equals(bind)) {
-                keybind.setBoundKey(InputUtil.fromTranslationKey(key));
+            if (keybind.getName().equals(bind)) {
+                keybind.setKeyCode(InputUtil.fromName(key));
                 return;
             }
         }
@@ -57,7 +57,7 @@ public class keybindFunctions extends Functions {
     public void keyBind(String keyBind, boolean keyState) {
         MinecraftClient mc = MinecraftClient.getInstance();
         for (KeyBinding key : mc.options.keysAll) {
-            if (key.getBoundKeyTranslationKey().equals(keyBind)) {
+            if (key.getName().equals(keyBind)) {
                 key.setPressed(keyState);
                 return;
             }
