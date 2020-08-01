@@ -20,15 +20,17 @@ public class jsmacros_WorldRendererMixin {
     public void jsmacros_render(float tickDelta, long endTime, CallbackInfo info) {
         
         List<Draw3D> renders;
-        
+
         try {
             renders = new ArrayList<>(hudFunctions.renders);
         } catch (Exception e) {
             return;
         }
-        
+
         for (Draw3D d : renders) {
-            d.render();
+            try {
+                d.render();
+            } catch (Exception e) {}
         }
     }
 }

@@ -22,15 +22,17 @@ class jsmacros_InGameHudMixin {
     public void jsMacros_renderHud(float f, final CallbackInfo info) {
         
         List<Draw2D> overlays;
-        
+
         try {
             overlays = new ArrayList<>(hudFunctions.overlays);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return;
         }
-        
+
         for (Draw2D h : overlays) {
-            h.render();
+            try {
+                h.render();
+            } catch (Exception e) {}
         }
         
         GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
