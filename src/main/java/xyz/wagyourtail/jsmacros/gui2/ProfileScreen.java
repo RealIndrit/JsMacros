@@ -198,22 +198,12 @@ public class ProfileScreen extends Screen {
 
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
-
-        List<ProfileContainer> profiles;
-        List<AbstractButtonWidget> buttons;
         
-        try {
-            profiles = ImmutableList.copyOf(this.profiles);
-            buttons = ImmutableList.copyOf(this.buttons);
-        } catch (Exception e) {
-            return;
-        }
-        
-        for (ProfileContainer p : profiles) {
+        for (ProfileContainer p : ImmutableList.copyOf(this.profiles)) {
             p.render(mouseX, mouseY, delta);
         }
 
-        for (AbstractButtonWidget b : buttons) {
+        for (AbstractButtonWidget b : ImmutableList.copyOf(this.buttons)) {
             ((Button) b).render(mouseX, mouseY, delta);
         }
 

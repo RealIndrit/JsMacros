@@ -73,19 +73,9 @@ public class CancelScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
         
-        List<thread> tl;
-        List<RunningThreadContainer> running;
-        List<AbstractButtonWidget> buttons;
+        List<thread> tl = RunScript.getThreads();
         
-        try {
-            tl = RunScript.getThreads();
-            running = ImmutableList.copyOf(this.running);
-            buttons = ImmutableList.copyOf(this.buttons);
-        } catch (Exception e) {
-            return;
-        }
-        
-        for (RunningThreadContainer r : running) {
+        for (RunningThreadContainer r : ImmutableList.copyOf(this.running)) {
             tl.remove(r.t);
             r.render(mouseX, mouseY, delta);
         }
@@ -94,7 +84,7 @@ public class CancelScreen extends Screen {
             addContainer(t);
         }
 
-        for (AbstractButtonWidget b : buttons) {
+        for (AbstractButtonWidget b : ImmutableList.copyOf(this.buttons)) {
             ((Button) b).render(mouseX, mouseY, delta);
         }
     }
