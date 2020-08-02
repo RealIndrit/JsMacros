@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.widget.AbstractButtonWidget;
 import net.minecraft.text.LiteralText;
@@ -108,7 +110,7 @@ public class EventChooser extends OverlayContainer {
 //        textRenderer.draw(, mouseX, mouseY, color, shadow, matrix, vertexConsumers, seeThrough, backgroundColor, light)
         super.render(mouseX, mouseY, delta);
         
-        for (AbstractButtonWidget b : this.buttons) {
+        for (AbstractButtonWidget b : ImmutableList.copyOf(this.buttons)) {
             if (((Button) b).hovering && !((Button) b).canRenderAllText()) {
                 // border
                 int width = textRenderer.getStringWidth(b.getMessage());

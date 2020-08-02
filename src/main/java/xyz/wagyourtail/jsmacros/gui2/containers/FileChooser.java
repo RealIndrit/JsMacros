@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
+import com.google.common.collect.ImmutableList;
+
 import xyz.wagyourtail.jsmacros.jsMacros;
 import xyz.wagyourtail.jsmacros.gui2.elements.Button;
 import xyz.wagyourtail.jsmacros.gui2.elements.OverlayContainer;
@@ -200,7 +202,8 @@ public class FileChooser extends OverlayContainer {
         fill(x + 2, y + height - 15, x + width - 2, y + height - 14, 0xFFFFFFFF);
 //        textRenderer.draw(, mouseX, mouseY, color, shadow, matrix, vertexConsumers, seeThrough, backgroundColor, light)
         super.render(mouseX, mouseY, delta);
-        for (AbstractButtonWidget b : this.buttons) {
+        
+        for (AbstractButtonWidget b : ImmutableList.copyOf(this.buttons)) {
             if (((Button) b).hovering && !((Button) b).canRenderAllText()) {
                 // border
                 int width = textRenderer.getStringWidth(b.getMessage());

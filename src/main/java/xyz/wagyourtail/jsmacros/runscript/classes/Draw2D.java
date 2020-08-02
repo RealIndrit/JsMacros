@@ -132,36 +132,23 @@ public class Draw2D extends DrawableHelper {
     
     public void render() {
         
-        List<rect> rectFields;
-        List<item> itemFields;
-        List<text> textFields;
-        List<image> imageFields;
-        
-        try {
-            rectFields = ImmutableList.copyOf(this.rectFields);
-            itemFields = ImmutableList.copyOf(this.itemFields);
-            textFields = ImmutableList.copyOf(this.textFields);
-            imageFields = ImmutableList.copyOf(this.imageFields);
-        } catch(Exception e) {
-            return;
-        }
         GlStateManager.pushMatrix();
-        for (rect r : rectFields) {
+        for (rect r : ImmutableList.copyOf(this.rectFields)) {
             r.render();
         }
        GlStateManager.popMatrix();
        GlStateManager.pushMatrix();
-        for (item i : itemFields) {
+        for (item i : ImmutableList.copyOf(this.itemFields)) {
             i.render();
         }
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
-        for (image i : imageFields) {
+        for (image i : ImmutableList.copyOf(this.imageFields)) {
             i.render();
         }
         GlStateManager.popMatrix();
         GlStateManager.pushMatrix();
-        for (text t : textFields) {
+        for (text t : ImmutableList.copyOf(this.textFields)) {
             t.render();
         }
         GlStateManager.popMatrix();

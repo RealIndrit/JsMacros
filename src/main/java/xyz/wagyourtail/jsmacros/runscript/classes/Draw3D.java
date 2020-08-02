@@ -65,16 +65,6 @@ public class Draw3D {
     public void render() {
         MinecraftClient mc = MinecraftClient.getInstance();
         
-        List<box> boxes;
-        List<line> lines;
-        
-        try {
-            boxes = ImmutableList.copyOf(this.boxes);
-            lines = ImmutableList.copyOf(this.lines);
-        } catch (Exception e) {
-            return;
-        }
-        
         // setup
         GlStateManager.enableBlend();
         GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
@@ -88,13 +78,12 @@ public class Draw3D {
         // offsetRender
         Camera camera = mc.gameRenderer.getCamera();
         Vec3d camPos = camera.getPos();
-
-        // render
-        for (box b : boxes) {
+        //render
+        for (box b : ImmutableList.copyOf(this.boxes)) {
             b.render(camPos);
         }
-
-        for (line l : lines) {
+        
+        for (line l : ImmutableList.copyOf(this.lines)) {
             l.render(camPos);
         }
 

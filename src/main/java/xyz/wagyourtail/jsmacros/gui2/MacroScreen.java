@@ -165,25 +165,13 @@ public class MacroScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground(0);
         
-        List<AbstractButtonWidget> buttons;
-        List<MacroContainer> macros;
-        
-        try {
-            buttons = ImmutableList.copyOf(this.buttons);
-            macros = ImmutableList.copyOf(this.macros);
-        } catch(Exception e) {
-            return;
-        }
-        
-        
         topbar.render(mouseX, mouseY, delta);
 
-
-        for (AbstractButtonWidget b : buttons) {
+        for (AbstractButtonWidget b : ImmutableList.copyOf(this.buttons)) {
             ((Button) b).render(mouseX, mouseY, delta);
         }
 
-        for (MacroContainer macro : macros) {
+        for (MacroContainer macro : ImmutableList.copyOf(this.macros)) {
             macro.render(mouseX, mouseY, delta);
         }
         
