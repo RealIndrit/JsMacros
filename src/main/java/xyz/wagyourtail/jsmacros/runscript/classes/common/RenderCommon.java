@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.runscript.classes.common;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -126,9 +126,9 @@ public class RenderCommon {
         public void render() {
             MinecraftClient mc = MinecraftClient.getInstance();
             mc.getTextureManager().bindTexture(imageid);
-            RenderSystem.enableBlend();
+            GlStateManager.enableBlend();
             DrawableHelper.blit(x, y, width, height, imageX, imageY, regionWidth, regionHeight, textureWidth, textureHeight);
-            RenderSystem.disableBlend();
+            GlStateManager.disableBlend();
         }
     }
     
