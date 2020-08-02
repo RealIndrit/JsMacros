@@ -1,6 +1,9 @@
 package xyz.wagyourtail.jsmacros.runscript.classes.common;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -70,6 +73,62 @@ public class RenderCommon {
                 i.renderGuiItemIcon(item, x, y);
                 if (overlay) i.renderGuiItemOverlay(mc.textRenderer, item, x, y, ovText);
             }
+        }
+    }
+    
+    public static class image {
+        private Identifier imageid;
+        public int x;
+        public int y;
+        public int width;
+        public int height;
+        public int imageX;
+        public int imageY;
+        public int regionWidth;
+        public int regionHeight;
+        public int textureWidth;
+        public int textureHeight;
+        public image(int x, int y, int width, int height, String id, int imageX, int imageY, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.imageX = imageX;
+            this.imageY = imageY;
+            this.regionWidth = regionWidth;
+            this.regionHeight = regionHeight;
+            this.textureWidth = textureWidth;
+            this.textureHeight = textureHeight;
+            imageid = new Identifier(id);
+        }
+        
+        public void setPos(int x, int y, int width, int height) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+        }
+        
+        public void setImage(String id, int imageX, int imageY, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+            imageid = new Identifier(id);
+            this.imageX = imageX;
+            this.imageY = imageY;
+            this.regionWidth = regionWidth;
+            this.regionHeight = regionHeight;
+            this.textureWidth = textureWidth;
+            this.textureHeight = textureHeight;
+        }
+        
+        public String getImage() {
+            return imageid.toString();
+        }
+        
+        public void render() {
+            MinecraftClient mc = MinecraftClient.getInstance();
+            mc.getTextureManager().bindTexture(imageid);
+            RenderSystem.enableBlend();
+            DrawableHelper.blit(x, y, width, height, imageX, imageY, regionWidth, regionHeight, textureWidth, textureHeight);
+            RenderSystem.disableBlend();
         }
     }
     

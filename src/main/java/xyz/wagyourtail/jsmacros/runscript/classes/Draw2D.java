@@ -10,6 +10,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import xyz.wagyourtail.jsmacros.reflector.ItemStackHelper;
+import xyz.wagyourtail.jsmacros.runscript.classes.common.RenderCommon.image;
 import xyz.wagyourtail.jsmacros.runscript.classes.common.RenderCommon.item;
 import xyz.wagyourtail.jsmacros.runscript.classes.common.RenderCommon.rect;
 import xyz.wagyourtail.jsmacros.runscript.classes.common.RenderCommon.text;
@@ -18,6 +19,7 @@ public class Draw2D extends DrawableHelper {
     public List<text> textFields = new ArrayList<>();
     public List<rect> rectFields = new ArrayList<>();
     public List<item> itemFields = new ArrayList<>();
+    public List<image> imageFields = new ArrayList<>();
     public Consumer<Draw2D> onInit;
     public Consumer<String> catchInit;
     
@@ -47,6 +49,10 @@ public class Draw2D extends DrawableHelper {
         return itemFields;
     }
     
+    public List<image> getImages() {
+        return imageFields;
+    }
+    
     
     public text addText(String text, int x, int y, int color, boolean shadow) {
         text t = new text(text, x, y, color, shadow);
@@ -57,6 +63,17 @@ public class Draw2D extends DrawableHelper {
     
     public Draw2D removeText(text t) {
         textFields.remove(t);
+        return this;
+    }
+    
+    public image addImage(int x, int y, int width, int height, String id, int imageX, int imageY, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+        image i = new image(x, y, width, height, id, imageX, imageY, regionWidth, regionHeight, textureWidth, textureHeight);
+        imageFields.add(i);
+        return i;
+    }
+    
+    public Draw2D removeImage(image i) {
+        imageFields.remove(i);
         return this;
     }
     
@@ -118,11 +135,13 @@ public class Draw2D extends DrawableHelper {
         List<rect> rectFields;
         List<item> itemFields;
         List<text> textFields;
+        List<image> imageFields;
         
         try {
             rectFields = ImmutableList.copyOf(this.rectFields);
             itemFields = ImmutableList.copyOf(this.itemFields);
             textFields = ImmutableList.copyOf(this.textFields);
+            imageFields = ImmutableList.copyOf(this.imageFields);
         } catch(Exception e) {
             return;
         }
@@ -133,6 +152,11 @@ public class Draw2D extends DrawableHelper {
        GlStateManager.popMatrix();
        GlStateManager.pushMatrix();
         for (item i : itemFields) {
+            i.render();
+        }
+        GlStateManager.popMatrix();
+        GlStateManager.pushMatrix();
+        for (image i : imageFields) {
             i.render();
         }
         GlStateManager.popMatrix();
