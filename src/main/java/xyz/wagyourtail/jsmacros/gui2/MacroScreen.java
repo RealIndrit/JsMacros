@@ -79,7 +79,7 @@ public class MacroScreen extends Screen {
         File f = new File(jsMacros.config.macroFolder, macro.getRawMacro().scriptFile);
         File dir = jsMacros.config.macroFolder;
         if (!f.equals(jsMacros.config.macroFolder)) dir = f.getParentFile();
-        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, minecraft.textRenderer, dir, f, this::addButton, this::removeButton, this::closeOverlay, macro::setFile));
+        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, minecraft.textRenderer, dir, f, this::addButton, this::removeButton, this::closeOverlay, this::setFocused, macro::setFile));
     }
     
     public void setEvent(MacroContainer macro) {
@@ -87,7 +87,7 @@ public class MacroScreen extends Screen {
     }
     
     public void runFile(MacroListTopbar m) {
-        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, minecraft.textRenderer, jsMacros.config.macroFolder, null, this::addButton, this::removeButton, this::closeOverlay,(file) -> {
+        openOverlay(new FileChooser(width / 4, height / 4, width / 2, height / 2, minecraft.textRenderer, jsMacros.config.macroFolder, null, this::addButton, this::removeButton, this::closeOverlay, this::setFocused, (file) -> {
             try {
                 RunScript.exec(new RawMacro(MacroEnum.EVENT, "", file.getCanonicalPath().substring(jsMacros.config.macroFolder.getCanonicalPath().length()), true), "", null);
             } catch (IOException e) {
