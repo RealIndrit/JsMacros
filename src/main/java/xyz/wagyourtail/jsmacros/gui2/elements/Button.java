@@ -1,6 +1,6 @@
 package xyz.wagyourtail.jsmacros.gui2.elements;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import net.minecraft.client.MinecraftClient;
@@ -13,7 +13,7 @@ public class Button extends AbstractPressableButtonWidget {
     protected int hilightColor;
     protected MinecraftClient mc;
     protected int textColor;
-    protected ArrayList<String> text;
+    protected List<String> text;
     protected int lines;
     protected int vcenter;
     public Consumer<Button> onPress;
@@ -43,7 +43,7 @@ public class Button extends AbstractPressableButtonWidget {
     
     public void setMessage(Text message) {
         super.setMessage(message.getString());
-        this.text = new ArrayList<>(this.mc.textRenderer.wrapStringToWidthAsList(message.getString(), width - 4));
+        this.text = this.mc.textRenderer.wrapStringToWidthAsList(message.getString(), width - 4);
         this.lines = Math.min(Math.max((height - 2) / mc.textRenderer.fontHeight, 1), text.size());
         this.vcenter = ((height - 4) - (lines * mc.textRenderer.fontHeight)) / 2;
     }
