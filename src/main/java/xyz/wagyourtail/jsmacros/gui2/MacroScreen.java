@@ -40,8 +40,14 @@ public class MacroScreen extends Screen {
         this.parent = parent;
     }
     
+    public void reload() {
+        init();
+    }
+    
     protected void init() {
         super.init();
+        buttons.clear();
+        children.clear();
         macros.clear();
         overlay = null;
         minecraft.keyboard.enableRepeatEvents(true);
