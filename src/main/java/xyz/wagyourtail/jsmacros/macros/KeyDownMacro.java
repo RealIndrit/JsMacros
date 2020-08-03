@@ -16,12 +16,11 @@ public class KeyDownMacro extends BaseMacro {
         this.mods = 0;
         try {
             String[] comb = macro.eventkey.split("\\+");
-            boolean notfirst = false;
             int i = 0;
             for (String key : comb) {
                 if (++i == comb.length) this.key = key;
                 else {
-                    if (notfirst) mods += "+";
+                    if (i > 1) mods += "+";
                     mods += key;
                 }
             }
