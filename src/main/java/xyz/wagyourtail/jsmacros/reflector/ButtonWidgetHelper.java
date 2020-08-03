@@ -33,7 +33,7 @@ public class ButtonWidgetHelper {
     }
     
     public String getText() {
-        return btn.getMessage().getString();
+        return btn.getMessage();
     }
     
     public boolean getActive() {
