@@ -17,13 +17,12 @@ public class KeyBothMacro extends BaseMacro {
         try {
             String[] comb = macro.eventkey.split("\\+");
             int i = 0;
-            boolean notfirst = false;
             for (String key : comb) {
                 if (++i == comb.length) this.key = key;
                 else {
-                    if (notfirst) mods += "+";
-                }
+                    if (i > 1) mods += "+";
                     mods += key;
+                }
             }
             this.mods = jsMacros.getModInt(mods);
         } catch(Exception e) {
